@@ -54,12 +54,6 @@ public class Util {
 
     }
 
-    public static void Weiter(JTabbedPane jp) {
-        //Einen Tab nach Vor
-        int index = jp.getSelectedIndex();
-        jp.setSelectedIndex(index + 1);
-    }
-
     public static void FragenAnzahl(JTextField jtf) {
         //Textfeld auslesen und in Variable speichern
         //Variable enthällt anzahl der erwünschten Fragen

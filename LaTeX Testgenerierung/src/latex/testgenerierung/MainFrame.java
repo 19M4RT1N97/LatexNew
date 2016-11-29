@@ -20,7 +20,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         jTable1.removeAll();
-        DefaultTableModel dm = new DefaultTableModel(new String[]{"Index","Name", "Topic", "Schwierigkeit", "Size"}, 0);
+        DefaultTableModel dm = new DefaultTableModel(new String[]{"Index", "Name", "Topic", "Schwierigkeit", "Size"}, 0);
         jTable1.setModel(dm);
         jTabbedPane1.enable(false);
 
@@ -566,7 +566,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
         if (!jTFAnzahl.getText().isEmpty()) {
-            Util.Weiter(jTabbedPane1);
+            int index = jTabbedPane1.getSelectedIndex();
+            jTabbedPane1.setSelectedIndex(index + 1);
             Util.FragenAnzahl(jTFAnzahl);
         } else {
             JOptionPane.showMessageDialog(this, "Geben sie eine Anzahl an gewünschten Fragen an.");
@@ -576,7 +577,8 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         if (!JTFThema1.getText().isEmpty()) {
-            Util.Weiter(jTabbedPane1);
+            int index = jTabbedPane1.getSelectedIndex();
+            jTabbedPane1.setSelectedIndex(index + 1);
             Util.ThemenRead(JTFThema1, JTFThema2);
         } else {
             JOptionPane.showMessageDialog(this, "Bitte geben Sie zumindest 1 Thema ein.");
@@ -604,7 +606,8 @@ public class MainFrame extends javax.swing.JFrame {
         Util.DiffFragenanzahl(JTFdifficulty1, JTFdifficulty2, JTFdifficulty3, JTFdifficulty4, JTFdifficulty5,
                 JTFdifficulty6, JTFdifficulty7, JTFdifficulty8, JTFdifficulty9, JTFdifficulty10);
         if (Util.SumDif()) {
-            Util.Weiter(jTabbedPane1);
+            int index = jTabbedPane1.getSelectedIndex();
+            jTabbedPane1.setSelectedIndex(index + 1);
         } else {
             JOptionPane.showMessageDialog(this, "Anzahl der Fragen ist zu hoch oder zu niedrig. Bitte prüfen Sie ihre Eingabe!");
         }
@@ -619,7 +622,8 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
-        Util.Weiter(jTabbedPane1);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index + 1);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
