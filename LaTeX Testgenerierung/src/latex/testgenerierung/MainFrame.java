@@ -568,7 +568,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (!jTFAnzahl.getText().isEmpty()) {
             int index = jTabbedPane1.getSelectedIndex();
             jTabbedPane1.setSelectedIndex(index + 1);
-            Util.FragenAnzahl(jTFAnzahl);
+            Util.FragenAnzahl(jTFAnzahl.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Geben sie eine Anzahl an gewünschten Fragen an.");
         }
@@ -579,7 +579,7 @@ public class MainFrame extends javax.swing.JFrame {
         if (!JTFThema1.getText().isEmpty()) {
             int index = jTabbedPane1.getSelectedIndex();
             jTabbedPane1.setSelectedIndex(index + 1);
-            Util.ThemenRead(JTFThema1, JTFThema2);
+            Util.ThemenRead(JTFThema1.getText(), JTFThema2.getText());
         } else {
             JOptionPane.showMessageDialog(this, "Bitte geben Sie zumindest 1 Thema ein.");
         }
@@ -587,24 +587,27 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-        Util.Zurueck(jTabbedPane1);
-        Util.BacktoAnzahl(JTFThema1, JTFThema2);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index - 1);
+        JTFThema1.setText(""); JTFThema2.setText("");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
         // TODO add your handling code here:
-        Util.Weiter(jTabbedPane1);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index + 1);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
-        Util.Zurueck(jTabbedPane1);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index - 1);
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
-        Util.DiffFragenanzahl(JTFdifficulty1, JTFdifficulty2, JTFdifficulty3, JTFdifficulty4, JTFdifficulty5,
-                JTFdifficulty6, JTFdifficulty7, JTFdifficulty8, JTFdifficulty9, JTFdifficulty10);
+        Util.DiffFragenanzahl(JTFdifficulty1.getText(), JTFdifficulty2.getText(), JTFdifficulty3.getText(), JTFdifficulty4.getText(), JTFdifficulty5.getText(),
+                JTFdifficulty6.getText() ,JTFdifficulty7.getText(), JTFdifficulty8.getText(), JTFdifficulty9.getText() ,JTFdifficulty10.getText());
         if (Util.SumDif()) {
             int index = jTabbedPane1.getSelectedIndex();
             jTabbedPane1.setSelectedIndex(index + 1);
@@ -615,9 +618,19 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         // TODO add your handling code here:
-        Util.Zurueck(jTabbedPane1);
-        Util.BacktoMultiSingel(JTFdifficulty1, JTFdifficulty2, JTFdifficulty3, JTFdifficulty4, JTFdifficulty5,
-                JTFdifficulty6, JTFdifficulty7, JTFdifficulty8, JTFdifficulty9, JTFdifficulty10);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index - 1);
+        JTFdifficulty1.setText("");
+        JTFdifficulty2.setText("");
+        JTFdifficulty3.setText("");
+        JTFdifficulty4.setText("");
+        JTFdifficulty5.setText("");
+        JTFdifficulty6.setText("");
+        JTFdifficulty7.setText("");
+        JTFdifficulty8.setText("");
+        JTFdifficulty9.setText("");
+        JTFdifficulty10.setText("");
+        Util.BacktoMultiSingel();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -628,12 +641,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
-        Util.Zurueck(jTabbedPane1);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index - 1);
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         // TODO add your handling code here:
-        Util.Zurueck(jTabbedPane1);
+        int index = jTabbedPane1.getSelectedIndex();
+        jTabbedPane1.setSelectedIndex(index - 1);
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed

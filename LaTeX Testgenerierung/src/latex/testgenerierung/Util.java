@@ -47,21 +47,16 @@ public class Util {
     static ArrayList dif9 = new ArrayList();
     static ArrayList dif10 = new ArrayList();
 
-    public static void Zurueck(JTabbedPane jp) {
-        //Einen Tab Zurück
-        int index = jp.getSelectedIndex();
-        jp.setSelectedIndex(index - 1);
+   
 
-    }
-
-    public static void FragenAnzahl(JTextField jtf) {
+    public static void FragenAnzahl(String jtf) {
         //Textfeld auslesen und in Variable speichern
         //Variable enthällt anzahl der erwünschten Fragen
-        fragenanzahl = Integer.parseInt(jtf.getText());
+        fragenanzahl = Integer.parseInt(jtf);
     }
 
-    public static void DiffFragenanzahl(JTextField jtfdif1, JTextField jtfdif2, JTextField jtfdif3, JTextField jtfdif4,
-            JTextField jtfdif5, JTextField jtfdif6, JTextField jtfdif7, JTextField jtfdif8, JTextField jtfdif9, JTextField jtfdif10) {
+    public static void DiffFragenanzahl(String jtfdif1, String jtfdif2, String jtfdif3, String jtfdif4,
+            String jtfdif5, String jtfdif6, String jtfdif7, String jtfdif8, String jtfdif9, String jtfdif10) {
         //Aus den Textfeldern des Schwierigkeitentabs werden die Inhalte herausgeholt und im Setanzahl gespeichert.
         setAnzahlDif(0, jtfdif1);
         setAnzahlDif(1, jtfdif2);
@@ -76,21 +71,21 @@ public class Util {
 
     }
 
-    public static void setAnzahlDif(int index, JTextField jtf) {
+    public static void setAnzahlDif(int index, String jtf) {
         //Fals das Übergebene Textfeld leer ist wird eine 0 gespeichert, fals nicht wird es in einem Int[] gespeichert.
-        if (!jtf.getText().isEmpty()) {
-            anzahldif[index] = Integer.parseInt(jtf.getText());
+        if (!jtf.equals("")) {
+            anzahldif[index] = Integer.parseInt(jtf);
         } else {
             anzahldif[index] = 0;
         }
     }
 
-    public static void ThemenRead(JTextField jtfthema1, JTextField jtfthema2) {
+    public static void ThemenRead(String jtfthema1, String jtfthema2) {
         // Die beiden Felder des Thementabs werden eingelesen und gespeichert
         //!!ACHTUNG!! THEMA2 DARF LEER SEIN
-        thema1 = jtfthema1.getText();
-        if (!jtfthema2.getText().isEmpty()) {
-            thema2 = jtfthema2.getText();
+        thema1 = jtfthema1;
+        if (!jtfthema2.equals("")) {
+            thema2 = jtfthema2;
         }
     }
 
@@ -464,27 +459,9 @@ public class Util {
         }
     }
 
-    public static void BacktoAnzahl(JTextField tm1, JTextField tm2) {
-        //Falls Zurückbutton gedrückt Themenfelder Geleehrt
-        tm1.setText("");
-        tm2.setText("");
-        thema1 = "";
-        thema2 = "";
-    }
 
-    public static void BacktoMultiSingel(JTextField schwer1, JTextField schwer2, JTextField schwer3, JTextField schwer4, JTextField schwer5,
-            JTextField schwer6, JTextField schwer7, JTextField schwer8, JTextField schwer9, JTextField schwer10) {
+    public static void BacktoMultiSingel() {
         //Falls Zurückbutton gedrückt Textfelder der Schwierigkeit geleert
-        schwer1.setText("");
-        schwer2.setText("");
-        schwer3.setText("");
-        schwer4.setText("");
-        schwer5.setText("");
-        schwer6.setText("");
-        schwer7.setText("");
-        schwer8.setText("");
-        schwer9.setText("");
-        schwer10.setText("");
         for (int i = 0; i < anzahldif.length; i++) {
             anzahldif[i] = 0;
         }
