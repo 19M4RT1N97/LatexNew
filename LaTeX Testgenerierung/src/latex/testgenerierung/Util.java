@@ -15,8 +15,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFileChooser;
-import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,13 +36,6 @@ public class Util {
     static ArrayList dif1 = new ArrayList();
     static ArrayList dif2 = new ArrayList();
     static ArrayList dif3 = new ArrayList();
-    static ArrayList dif4 = new ArrayList();
-    static ArrayList dif5 = new ArrayList();
-    static ArrayList dif6 = new ArrayList();
-    static ArrayList dif7 = new ArrayList();
-    static ArrayList dif8 = new ArrayList();
-    static ArrayList dif9 = new ArrayList();
-    static ArrayList dif10 = new ArrayList();
 
     public static void FragenAnzahl(String jtf) {
         //Textfeld auslesen und in Variable speichern
@@ -52,19 +43,11 @@ public class Util {
         fragenanzahl = Integer.parseInt(jtf);
     }
 
-    public static void DiffFragenanzahl(String jtfdif1, String jtfdif2, String jtfdif3, String jtfdif4,
-            String jtfdif5, String jtfdif6, String jtfdif7, String jtfdif8, String jtfdif9, String jtfdif10) {
+    public static void DiffFragenanzahl(String jtfdif1, String jtfdif2, String jtfdif3) {
         //Aus den Textfeldern des Schwierigkeitentabs werden die Inhalte herausgeholt und im Setanzahl gespeichert.
         setAnzahlDif(0, jtfdif1);
         setAnzahlDif(1, jtfdif2);
         setAnzahlDif(2, jtfdif3);
-        setAnzahlDif(3, jtfdif4);
-        setAnzahlDif(4, jtfdif5);
-        setAnzahlDif(5, jtfdif6);
-        setAnzahlDif(6, jtfdif7);
-        setAnzahlDif(7, jtfdif8);
-        setAnzahlDif(8, jtfdif9);
-        setAnzahlDif(9, jtfdif10);
 
     }
 
@@ -103,14 +86,13 @@ public class Util {
     Lest das LaTeX Dokument mit hilfe eines BufferedReader und speichert die einzelnen Fragen in eine Arraylist
     
      */
-    public static void readFile() {
+    public static void readFile(String path) {
         BufferedReader br = null;
         try {
             //Dokument mit File Chooser einlesen
-//            JFileChooser jfc = new JFileChooser();
-//            jfc.showOpenDialog(jfc);
-//             FileReader fr = new FileReader(new File(jfc.getSelectedFile().getAbsolutePath()));
-            FileReader fr = new FileReader(new File("Testsammlung.tex"));
+
+            FileReader fr = new FileReader(new File(path));
+
             br = new BufferedReader(fr);
             boolean questions = false;
             //Arraylist Erstellen und mit 10 Elementen Befüllen (OutOfBounce vorbeugung)
@@ -192,38 +174,16 @@ public class Util {
             case 2:
                 Docreader.DocSave(frage, dif3);
                 frage.add(line);
-            case 3:
-                Docreader.DocSave(frage, dif4);
-                frage.add(line);
-            case 4:
-                Docreader.DocSave(frage, dif5);
-                frage.add(line);
-            case 5:
-                Docreader.DocSave(frage, dif6);
-                frage.add(line);
-            case 6:
-                Docreader.DocSave(frage, dif7);
-                frage.add(line);
-            case 7:
-                Docreader.DocSave(frage, dif8);
-                frage.add(line);
-            case 8:
-                Docreader.DocSave(frage, dif9);
-                frage.add(line);
-            case 9:
-                Docreader.DocSave(frage, dif10);
-                frage.add(line);
         }
     }
 
-    public static void FileSave(JTable jt) {
+    public static void FileSave(DefaultTableModel dm, String absolutepath) {
 
         BufferedWriter bw = null;
         try {
-            JFileChooser jfc = new JFileChooser();
-            jfc.showSaveDialog(jfc);
-            bw = new BufferedWriter(new FileWriter(new File(jfc.getSelectedFile().getAbsolutePath())));
-            DefaultTableModel dm = (DefaultTableModel) jt.getModel();
+
+            bw = new BufferedWriter(new FileWriter(new File(absolutepath)));
+
             //GetCoords holt den Index (Position inerhalb der Frageliste) und der Schwierigkeit (Welche Frageliste)
             int[][] coords = Docreader.GetCoords(dm);
             Docreader.DocOutStandart(header, bw);
@@ -241,27 +201,6 @@ public class Util {
                     case 2:
                         Docreader.DocOut(dif3, bw, coords[index][0]);
                         break;
-                    case 3:
-                        Docreader.DocOut(dif4, bw, coords[index][0]);
-                        break;
-                    case 4:
-                        Docreader.DocOut(dif5, bw, coords[index][0]);
-                        break;
-                    case 5:
-                        Docreader.DocOut(dif6, bw, coords[index][0]);
-                        break;
-                    case 6:
-                        Docreader.DocOut(dif7, bw, coords[index][0]);
-                        break;
-                    case 7:
-                        Docreader.DocOut(dif8, bw, coords[index][0]);
-                        break;
-                    case 8:
-                        Docreader.DocOut(dif9, bw, coords[index][0]);
-                        break;
-                    case 9:
-                        Docreader.DocOut(dif10, bw, coords[index][0]);
-                        break;
                 }
             }
             Docreader.DocOutStandart(footer, bw);
@@ -273,86 +212,47 @@ public class Util {
 
     }
 
-    public static void fillTable(JTable jt, JTextField diff) {
+    public static DefaultTableModel fillTable(DefaultTableModel dm, JTextField diff) {
         //Switch auf Schwierigkeit -1 um das 0te Element zu erhalten
         int schwierigkeit = Integer.parseInt(diff.getText());
+        DefaultTableModel dmnew = null;
         switch (schwierigkeit - 1) {
             case 0:
-                dofillTable(jt, diff, dif1);
+                dmnew = dofillTable(dm, diff, dif1);
                 break;
             case 1:
-                dofillTable(jt, diff, dif2);
+                dofillTable(dm, diff, dif2);
                 break;
             case 2:
-                dofillTable(jt, diff, dif3);
-                break;
-            case 3:
-                dofillTable(jt, diff, dif4);
-                break;
-            case 4:
-                dofillTable(jt, diff, dif5);
-                break;
-            case 5:
-                dofillTable(jt, diff, dif6);
-                break;
-            case 6:
-                dofillTable(jt, diff, dif7);
-                break;
-            case 7:
-                dofillTable(jt, diff, dif8);
-                break;
-            case 8:
-                dofillTable(jt, diff, dif9);
-                break;
-            case 9:
-                dofillTable(jt, diff, dif10);
+                dofillTable(dm, diff, dif3);
                 break;
         }
+        return dmnew;
     }
 
-    public static void fillTable(JTable jt) {
+    public static DefaultTableModel fillTable(DefaultTableModel dm) {
         //table wird gefüllt 
+        DefaultTableModel dmnew = null;
         for (int index = 0; index < anzahldif.length; index++) {
             if (anzahldif[index] != 0) {
                 switch (index) {
                     case 0:
-                        dofillTable(jt, anzahldif[index], dif1);
+                        dmnew = dofillTable(dm, anzahldif[index], dif1);
                         break;
                     case 1:
-                        dofillTable(jt, anzahldif[index], dif2);
+                        dmnew = dofillTable(dm, anzahldif[index], dif2);
                         break;
                     case 2:
-                        dofillTable(jt, anzahldif[index], dif3);
-                        break;
-                    case 3:
-                        dofillTable(jt, anzahldif[index], dif4);
-                        break;
-                    case 4:
-                        dofillTable(jt, anzahldif[index], dif5);
-                        break;
-                    case 5:
-                        dofillTable(jt, anzahldif[index], dif6);
-                        break;
-                    case 6:
-                        dofillTable(jt, anzahldif[index], dif7);
-                        break;
-                    case 7:
-                        dofillTable(jt, anzahldif[index], dif8);
-                        break;
-                    case 8:
-                        dofillTable(jt, anzahldif[index], dif9);
-                        break;
-                    case 9:
-                        dofillTable(jt, anzahldif[index], dif10);
+                        dmnew = dofillTable(dm, anzahldif[index], dif3);
                         break;
                 }
             }
         }
+        return dmnew;
     }
 
-    public static void dofillTable(JTable jt, int difanzahl, ArrayList dif) {
+    public static DefaultTableModel dofillTable(DefaultTableModel dm, int difanzahl, ArrayList dif) {
         //Auslesen der Ausgewählten Fragen jedoch leeres Textfeld
-        DefaultTableModel dm = (DefaultTableModel) jt.getModel();
         int counter = 0;
         String[] line = null;
 
@@ -403,13 +303,12 @@ public class Util {
                 line = null;
             }
 
-            jt.setModel(dm);
         }
+        return dm;
     }
 
-    public static void dofillTable(JTable jt, JTextField diff, ArrayList dif) {
+    public static DefaultTableModel dofillTable(DefaultTableModel dm, JTextField diff, ArrayList dif) {
         //Auslesen der Ausgewählten Fragen jedoch gefülltes Textfeld
-        DefaultTableModel dm = (DefaultTableModel) jt.getModel();
 
         String[] line = null;
 
@@ -444,16 +343,17 @@ public class Util {
             }
         }
 
-        jt.setModel(dm);
+        return dm;
     }
 
-    public static void TableLoeschen(JTable jt) {
+    public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
         //löschen der ausgewählten Zeile in der Table
-        if (jt.getSelectedRow() != -1) {
-            DefaultTableModel dm = (DefaultTableModel) jt.getModel();
-            dm.removeRow(jt.getSelectedRow());
-            jt.setModel(dm);
+
+        if (row > -1) {
+            dm.removeRow(row);
         }
+        return dm;
+        
     }
 
     public static void BacktoMultiSingel() {
