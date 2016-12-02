@@ -16,7 +16,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
-import javax.swing.JTabbedPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
@@ -46,8 +45,6 @@ public class Util {
     static ArrayList dif8 = new ArrayList();
     static ArrayList dif9 = new ArrayList();
     static ArrayList dif10 = new ArrayList();
-
-   
 
     public static void FragenAnzahl(String jtf) {
         //Textfeld auslesen und in Variable speichern
@@ -458,7 +455,6 @@ public class Util {
             jt.setModel(dm);
         }
     }
-
 
     public static void BacktoMultiSingel() {
         //Falls Zurückbutton gedrückt Textfelder der Schwierigkeit geleert
