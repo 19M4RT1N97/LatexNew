@@ -18,13 +18,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Docreader {
 
-    public static void DocSave(ArrayList frage, ArrayList test) {
-        //Cone um keine Abhängigkeit zu haben
-        // bei clear würde sonst "null" drinstehen
-        test.add(frage.clone());
-        frage.clear();
-    }
-
     public static void DocOutStandart(ArrayList al, BufferedWriter bw) {
         try {
             for (int i = 0; i < al.size(); i++) {
@@ -68,7 +61,6 @@ public class Docreader {
         int counter = 0;
         for (int row = 0; row < dm.getRowCount(); row++) {
             for (int column = 0; column < dm.getColumnCount(); column++) {
-
                 if (column == 0) {
                     fragencoords[counter][0] = Integer.parseInt((String) dm.getValueAt(row, column));
                 } else if (column == 3) {

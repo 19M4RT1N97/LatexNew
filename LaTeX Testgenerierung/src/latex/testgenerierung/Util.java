@@ -28,11 +28,7 @@ public class Util {
     static int[] anzahldif = new int[10];
     static String thema1;
     static String thema2;
-    static ArrayList frage = new ArrayList();
-    static ArrayList header = new ArrayList();
-    static ArrayList footer = new ArrayList();
-    static ArrayList result = new ArrayList();
-    static ArrayList description = new ArrayList();
+    static ArrayList head = new ArrayList();
     static ArrayList dif1 = new ArrayList();
     static ArrayList dif2 = new ArrayList();
     static ArrayList dif3 = new ArrayList();
@@ -96,59 +92,41 @@ public class Util {
             br = new BufferedReader(fr);
             boolean questions = false;
             //Arraylist Erstellen und mit 10 Elementen Befüllen (OutOfBounce vorbeugung)
-
+            String fullline = "";
             int difficulty = 0;
-
+            boolean lineadd = true;
             while (br.ready()) {
                 String line = br.readLine();
-                //header Attribut auslesen
-                if (line.contains("% @header")) {
-                    frage.clear();
-                }
-                //footer Attribut auslesen
-                if (line.contains("% @footer")) {
-                    header.add(frage.clone());
-                    frage.clear();
-                }
-                //result Attribut auslesen
-                if (line.contains("% @result")) {
-                    footer.add(frage.clone());
-                    frage.clear();
-                }
-                //Description Attribut auslesen
-                if (line.contains("% @description")) {
-                    result.add(frage.clone());
-                    frage.clear();
-                }
-                //Prüfung Frage ende also speichern oder nicht
-                if (line.contains("% @name") && questions) {
-                    ArraySave(difficulty, line);
-                    //vor 1. Frage Liste von unnötigen Items clearen
-                } else if (line.contains("% @name") && difficulty == 0) {
-                    description.add(frage.clone());
-                    frage.clear();
-                    frage.add(line);
-                    questions = true;
+                if (line.contains("\\begin{questions}")) {
+                    head.add(fullline);
+                    fullline = "";
 
-                } else {
-                    //Line in Arraylist speichern
-                    frage.add(line);
                 }
+                if (line.contains("\\end{document}")) {
+                    fullline += line + " ";
+                    LineSave(difficulty, fullline);
+                    fullline = "";
+                    lineadd = false;
+                } else if (line.contains("\\end{minipage}")) {
+
+                    fullline += line + " ";
+                    LineSave(difficulty, fullline);
+                    fullline = "";
+                    lineadd = false;
+                }
+
                 //Difficulty attribut auslesen und Festlegen
                 if (line.contains("% @difficulty")) {
                     String[] split = line.split("=");
-                    difficulty = Integer.parseInt(split[1]) - 1;
+                    difficulty = Integer.parseInt(split[1]);
                 }
-
+                if (lineadd) {
+                    fullline += line + " ";
+                } else {
+                    lineadd = true;
+                }
             }
 
-            ArraySave(difficulty, "");
-            System.out.println("" + dif1.toString());
-            System.out.println("" + dif2.toString());
-            System.out.println("" + header.toString());
-            System.out.println("" + footer.toString());
-            System.out.println("" + result.toString());
-            System.out.println("" + description.toString());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -162,18 +140,18 @@ public class Util {
         }
     }
 
-    public static void ArraySave(int difficulty, String line) {
+    public static void LineSave(int difficulty, String fullline) {
         //durch die Difficulty wird der Ensprechende Array zur Speicherung gewählt
         switch (difficulty) {
-            case 0:
-                Docreader.DocSave(frage, dif1);
-                frage.add(line);
             case 1:
-                Docreader.DocSave(frage, dif2);
-                frage.add(line);
+                dif1.add(fullline);
+                break;
             case 2:
-                Docreader.DocSave(frage, dif3);
-                frage.add(line);
+                dif2.add(fullline);
+                break;
+            case 3:
+                dif3.add(fullline);
+                break;
         }
     }
 
@@ -186,9 +164,7 @@ public class Util {
 
             //GetCoords holt den Index (Position inerhalb der Frageliste) und der Schwierigkeit (Welche Frageliste)
             int[][] coords = Docreader.GetCoords(dm);
-            Docreader.DocOutStandart(header, bw);
-            Docreader.DocOutStandart(description, bw);
-            Docreader.DocOutStandart(result, bw);
+            
             for (int index = 0; index < coords.length; index++) {
                 int schwer = coords[index][1];
                 switch (schwer - 1) {
@@ -203,7 +179,7 @@ public class Util {
                         break;
                 }
             }
-            Docreader.DocOutStandart(footer, bw);
+            
             bw.close();
 
         } catch (IOException ex) {
@@ -353,7 +329,7 @@ public class Util {
             dm.removeRow(row);
         }
         return dm;
-        
+
     }
 
     public static void BacktoMultiSingel() {
