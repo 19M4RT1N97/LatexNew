@@ -98,9 +98,10 @@ public class Util {
             while (br.ready()) {
                 String line = br.readLine();
                 if (line.contains("\\begin{questions}")) {
+                    fullline += line + " ";
                     head.add(fullline);
                     fullline = "";
-
+                    lineadd=false;
                 }
                 if (line.contains("\\end{document}")) {
                     fullline += line + " ";
