@@ -159,39 +159,7 @@ public class Util {
         }
     }
 
-    public static void FileSave(DefaultTableModel dm, String absolutepath) {
-
-        BufferedWriter bw = null;
-        try {
-
-            bw = new BufferedWriter(new FileWriter(new File(absolutepath)));
-
-            //GetCoords holt den Index (Position inerhalb der Frageliste) und der Schwierigkeit (Welche Frageliste)
-            int[][] coords = Docreader.GetCoords(dm);
-            
-            for (int index = 0; index < coords.length; index++) {
-                int schwer = coords[index][1];
-                switch (schwer - 1) {
-                    case 0:
-                        Docreader.DocOut(dif1, bw, coords[index][0]);
-                        break;
-                    case 1:
-                        Docreader.DocOut(dif2, bw, coords[index][0]);
-                        break;
-                    case 2:
-                        Docreader.DocOut(dif3, bw, coords[index][0]);
-                        break;
-                }
-            }
-            
-            bw.close();
-
-        } catch (IOException ex) {
-            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-    }
-
+   
     public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
         //löschen der ausgewählten Zeile in der Table
 
