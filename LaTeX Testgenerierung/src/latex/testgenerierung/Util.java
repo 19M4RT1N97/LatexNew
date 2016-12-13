@@ -111,7 +111,7 @@ public class Util {
                 } else if (line.contains("\\end{minipage}")) {
 
                     fullline += line + " ";
-                    LineSave(difficulty, fullline+" | ");
+                    LineSave(difficulty, fullline);
                     fullline = "";
                     lineadd = false;
                 }
@@ -341,5 +341,20 @@ public class Util {
         for (int i = 0; i < anzahldif.length; i++) {
             anzahldif[i] = 0;
         }
+    }
+    
+    public static void createLaTexDoc(String path) throws IOException
+    {
+        
+        
+        FileWriter writer = new FileWriter(path);
+        String header= head.toString();
+        String[] headerArray=header.split(";");
+        
+        for(int i=0; i<headerArray.length;i++)
+        {
+            writer.write(headerArray[i].toString());
+        }
+        
     }
 }
