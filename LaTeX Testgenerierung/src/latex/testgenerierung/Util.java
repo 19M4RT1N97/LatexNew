@@ -111,7 +111,7 @@ public class Util {
                 } else if (line.contains("\\end{minipage}")) {
 
                     fullline += line + " ";
-                    LineSave(difficulty, fullline+" | ");
+                    LineSave(difficulty, fullline);
                     fullline = "";
                     lineadd = false;
                 }
@@ -192,140 +192,6 @@ public class Util {
 
     }
 
-    public static DefaultTableModel fillTable(DefaultTableModel dm, JTextField diff) {
-        //Switch auf Schwierigkeit -1 um das 0te Element zu erhalten
-        int schwierigkeit = Integer.parseInt(diff.getText());
-        DefaultTableModel dmnew = null;
-        switch (schwierigkeit - 1) {
-            case 0:
-                dmnew = dofillTable(dm, diff, dif1);
-                break;
-            case 1:
-                dofillTable(dm, diff, dif2);
-                break;
-            case 2:
-                dofillTable(dm, diff, dif3);
-                break;
-        }
-        return dmnew;
-    }
-
-    public static DefaultTableModel fillTable(DefaultTableModel dm) {
-        //table wird gefüllt 
-        DefaultTableModel dmnew = null;
-        for (int index = 0; index < anzahldif.length; index++) {
-            if (anzahldif[index] != 0) {
-                switch (index) {
-                    case 0:
-                        dmnew = dofillTable(dm, anzahldif[index], dif1);
-                        break;
-                    case 1:
-                        dmnew = dofillTable(dm, anzahldif[index], dif2);
-                        break;
-                    case 2:
-                        dmnew = dofillTable(dm, anzahldif[index], dif3);
-                        break;
-                }
-            }
-        }
-        return dmnew;
-    }
-
-    public static DefaultTableModel dofillTable(DefaultTableModel dm, int difanzahl, ArrayList dif) {
-        //Auslesen der Ausgewählten Fragen jedoch leeres Textfeld
-        int counter = 0;
-        String[] line = null;
-
-        for (int index = 0; index < dif.size(); index++) {
-            ArrayList temp = (ArrayList) dif.get(index);
-            line = new String[5];
-
-            for (int i = 0; i < temp.size(); i++) {
-                if (temp.size() > 4) {
-                    if (temp.get(i).toString().contains("% @name")) {
-                        line[i] = index + "";
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @topic")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @difficulty")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @size")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else {
-                        break;
-                    }
-                }
-
-            }
-            if (thema2 != null) {
-                if (temp.size() > 4 && (line[2].contains(thema1) || line[2].contains(thema2))) {
-                    dm.addRow(line);
-                    counter++;
-                    if (counter == difanzahl) {
-                        break;
-                    }
-                    line = null;
-                } else {
-                    line = null;
-                }
-            } else if (temp.size() > 4 && line[2].contains(thema1)) {
-                dm.addRow(line);
-                counter++;
-                if (counter == difanzahl) {
-                    break;
-                }
-                line = null;
-            } else {
-                line = null;
-            }
-
-        }
-        return dm;
-    }
-
-    public static DefaultTableModel dofillTable(DefaultTableModel dm, JTextField diff, ArrayList dif) {
-        //Auslesen der Ausgewählten Fragen jedoch gefülltes Textfeld
-
-        String[] line = null;
-
-        for (int index = 0; index < dif.size(); index++) {
-            ArrayList temp = (ArrayList) dif.get(index);
-            line = new String[5];
-
-            for (int i = 0; i < temp.size(); i++) {
-
-                if (temp.size() > 4) {
-                    if (temp.get(i).toString().contains("% @name")) {
-                        line[i] = index + "";
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @topic")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @difficulty")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else if (temp.get(i).toString().contains("% @size")) {
-                        String[] split = temp.get(i).toString().split("=");
-                        line[i + 1] = split[1];
-                    } else {
-                        break;
-                    }
-                }
-            }
-            if (temp.size() > 4) {
-                dm.addRow(line);
-                line = null;
-            }
-        }
-
-        return dm;
-    }
-
     public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
         //löschen der ausgewählten Zeile in der Table
 
@@ -341,5 +207,20 @@ public class Util {
         for (int i = 0; i < anzahldif.length; i++) {
             anzahldif[i] = 0;
         }
+    }
+    
+    public static void createLaTexDoc(String path) throws IOException
+    {
+        
+        
+        FileWriter writer = new FileWriter(path);
+        String header= head.toString();
+        String[] headerArray=header.split(";");
+        
+        for(int i=0; i<headerArray.length;i++)
+        {
+            writer.write(headerArray[i].toString());
+        }
+        
     }
 }
