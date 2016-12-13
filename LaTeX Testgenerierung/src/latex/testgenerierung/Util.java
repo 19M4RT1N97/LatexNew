@@ -99,19 +99,19 @@ public class Util {
                 String line = br.readLine();
                 if (line.contains("\\begin{questions}")) {
                     fullline += line + " ";
-                    head.add(fullline);
+                    head.add(fullline+" | ");
                     fullline = "";
                     lineadd=false;
                 }
                 if (line.contains("\\end{document}")) {
                     fullline += line + " ";
-                    LineSave(difficulty, fullline);
+                    LineSave(difficulty, fullline+" | ");
                     fullline = "";
                     lineadd = false;
                 } else if (line.contains("\\end{minipage}")) {
 
                     fullline += line + " ";
-                    LineSave(difficulty, fullline);
+                    LineSave(difficulty, fullline+" | ");
                     fullline = "";
                     lineadd = false;
                 }
@@ -122,11 +122,14 @@ public class Util {
                     difficulty = Integer.parseInt(split[1]);
                 }
                 if (lineadd) {
-                    fullline += line + " ";
+                    fullline += line + " ; ";
                 } else {
                     lineadd = true;
                 }
             }
+            System.out.println("" + head.toString());
+            System.out.println("" + dif1.toString());
+            System.out.println("" + dif2.toString());
 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
