@@ -26,7 +26,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         jTable1.removeAll();
-        DefaultTableModel dm = new DefaultTableModel(new String[]{"Index", "Name", "Topic", "Schwierigkeit", "Size"}, 0);
+        DefaultTableModel dm = new DefaultTableModel(new String[]{"Name", "Topic", "Schwierigkeit"},0);
         jTable1.setModel(dm);
         jTabbedPane1.enable(false);
         
@@ -626,9 +626,9 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel modeltemp = null;
         if (JTFdiff.getText().isEmpty()) {
-            modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel());
+                modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel());
         } else {
-            modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel(), JTFdiff);
+            modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel(), Integer.parseInt(JTFdiff.getText()));
         }
         if (modeltemp != null) {
             jTable1.setModel(modeltemp);

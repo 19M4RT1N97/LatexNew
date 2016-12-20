@@ -6,16 +6,16 @@
 package latex.testgenerierung;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import static java.lang.Math.round;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -24,8 +24,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Util {
 
+    static LinkedList<Question> QuestionList = new LinkedList<>();
+
     static int fragenanzahl;
-    static int[] anzahldif = new int[10];
+    static int[] anzahldif = new int[3];
     static String thema1;
     static String thema2;
     static ArrayList head = new ArrayList();
@@ -78,10 +80,6 @@ public class Util {
         }
     }
 
-    /*
-    Lest das LaTeX Dokument mit hilfe eines BufferedReader und speichert die einzelnen Fragen in eine Arraylist
-    
-     */
     public static void readFile(String path) {
         BufferedReader br = null;
         try {
@@ -99,13 +97,13 @@ public class Util {
                 String line = br.readLine();
                 if (line.contains("\\begin{questions}")) {
                     fullline += line + " ";
-                    head.add(fullline+" | ");
+                    head.add(fullline);
                     fullline = "";
-                    lineadd=false;
+                    lineadd = false;
                 }
                 if (line.contains("\\end{document}")) {
                     fullline += line + " ";
-                    LineSave(difficulty, fullline+" | ");
+                    head.add(fullline);
                     fullline = "";
                     lineadd = false;
                 } else if (line.contains("\\end{minipage}")) {
@@ -127,6 +125,7 @@ public class Util {
                     lineadd = true;
                 }
             }
+
             System.out.println("" + head.toString());
             System.out.println("" + dif1.toString());
             System.out.println("" + dif2.toString());
@@ -159,13 +158,111 @@ public class Util {
         }
     }
 
-   
+    public static DefaultTableModel fillTable(DefaultTableModel dm) {
+
+        if (anzahldif[0] > 0) {
+            ArrayList diftemp = (ArrayList) dif1.clone();
+            for (int i = 0; i < anzahldif[0];) {
+                int rindex = (int) round(Math.random() * (diftemp.size() - 1));
+                if (!(rindex > diftemp.size())) {
+                    String line = (String) diftemp.get(rindex);
+                    String[] split = line.split(";");
+                    HeadAtt ha = new HeadAtt(split);
+                    Question q = new Question(split);
+                    if (q.thema.contains(thema1)) {
+                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                        QuestionList.addLast(q);
+                        i++;
+                        diftemp.remove(rindex);
+                    }
+                }
+
+            }
+        }
+        if (anzahldif[1] > 0) {
+            ArrayList diftemp = (ArrayList) dif2.clone();
+            for (int i = 0; i < anzahldif[1];) {
+                int rindex = (int) round(Math.random() * (diftemp.size() - 1));
+                if (!(rindex > diftemp.size())) {
+                    String line = (String) diftemp.get(rindex);
+                    String[] split = line.split(";");
+                    HeadAtt ha = new HeadAtt(split);
+                    Question q = new Question(split);
+                    if (q.thema.contains(thema1)) {
+                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                        QuestionList.addLast(q);
+                        i++;
+                        diftemp.remove(rindex);
+                    }
+                }
+            }
+        }
+        if (anzahldif[2] > 0) {
+            ArrayList diftemp = (ArrayList) dif3.clone();
+            for (int i = 0; i < anzahldif[2];) {
+                int rindex = (int) round(Math.random() * (diftemp.size() - 1));
+                if (!(rindex > diftemp.size())) {
+                    String line = (String) diftemp.get(rindex);
+                    String[] split = line.split(";");
+                    HeadAtt ha = new HeadAtt(split);
+                    Question q = new Question(split);
+                    if (q.thema.contains(thema1)) {
+                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                        QuestionList.addLast(q);
+                        i++;
+                        diftemp.remove(rindex);
+                    }
+                }
+            }
+        }
+        return dm;
+    }
+
+    public static DefaultTableModel fillTable(DefaultTableModel dm, int index) {
+
+        if (index == 1) {
+
+            for (int i = 0; i < dif1.size(); i++) {
+                String line = (String) dif1.get(i);
+                String[] split = line.split(";");
+                HeadAtt ha = new HeadAtt(split);
+                Question q = new Question(split);
+                dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                QuestionList.addLast(q);
+            }
+        }
+        if (index == 2) {
+            for (int i = 0; i < dif2.size(); i++) {
+                String line = (String) dif2.get(i);
+                String[] split = line.split(";");
+                HeadAtt ha = new HeadAtt(split);
+                Question q = new Question(split);
+                dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                QuestionList.addLast(q);
+            }
+        }
+        if (index == 3) {
+            for (int i = 0; i < dif3.size(); i++) {
+                String line = (String) dif3.get(i);
+                String[] split = line.split(";");
+                HeadAtt ha = new HeadAtt(split);
+                Question q = new Question(split);
+                dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                QuestionList.addLast(q);
+
+            }
+        }
+        return dm;
+    }
+
     public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
         //löschen der ausgewählten Zeile in der Table
-
+        System.out.println("" + QuestionList.get(row).toString());
         if (row > -1) {
+            QuestionList.remove(row);
             dm.removeRow(row);
         }
+        System.out.println("" + QuestionList.get(row).toString());
         return dm;
 
     }
@@ -176,19 +273,16 @@ public class Util {
             anzahldif[i] = 0;
         }
     }
-    
-    public static void createLaTexDoc(String path) throws IOException
-    {
-        
-        
+
+    public static void createLaTexDoc(String path) throws IOException {
+
         FileWriter writer = new FileWriter(path);
-        String header= head.toString();
-        String[] headerArray=header.split(";");
-        
-        for(int i=0; i<headerArray.length;i++)
-        {
+        String header = head.toString();
+        String[] headerArray = header.split(";");
+
+        for (int i = 0; i < headerArray.length; i++) {
             writer.write(headerArray[i].toString());
         }
-        
+
     }
 }
