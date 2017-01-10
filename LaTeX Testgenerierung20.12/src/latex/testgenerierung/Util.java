@@ -169,10 +169,10 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
+                    i++;
                     if (q.thema.contains(thema1)) {
                         dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                         QuestionList.addLast(q);
-                        i++;
                         diftemp.remove(rindex);
                     }
                 }
@@ -188,10 +188,10 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
+                    i++;
                     if (q.thema.contains(thema1)) {
                         dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                         QuestionList.addLast(q);
-                        i++;
                         diftemp.remove(rindex);
                     }
                 }
@@ -206,6 +206,7 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
+                    i++;
                     if (q.thema.contains(thema1)) {
                         dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                         QuestionList.addLast(q);
@@ -257,7 +258,6 @@ public class Util {
 
     public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
         //löschen der ausgewählten Zeile in der Table
-        System.out.println("" + QuestionList.get(row).toString());
         if (row > -1) {
             QuestionList.remove(row);
             dm.removeRow(row);
@@ -274,23 +274,21 @@ public class Util {
         }
     }
 
-    public static void createLaTexDoc(String path) throws IOException
-    {
+    public static void createLaTexDoc(String path) throws IOException {
         LinkedList<String> LinkedL;
         LinkedL = new LinkedList<>();
         try (FileWriter writer = new FileWriter(path)) {
-            String header= head.toString();
-            String[] headerArray=header.split(";");
-            
+            String header = head.toString();
+            String[] headerArray = header.split(";");
+
             for (String headerArray1 : headerArray) {
-                
+
                 writer.write(headerArray1);
             }
             // LinkedList von jTable holen und Werte bzw. Questions hinzufügen
-        for(int i=0;i<LinkedL.size();i++)
-        {
-            writer.write(LinkedL.get(i));
-        }
+            for (int i = 0; i < LinkedL.size(); i++) {
+                writer.write(LinkedL.get(i));
+            }
         }
     }
 }
