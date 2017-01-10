@@ -5,7 +5,6 @@
  */
 package latex.testgenerierung;
 
-import java.util.Vector;
 
 /**
  *
@@ -31,9 +30,5 @@ public class Question {
     @Override
     public String toString() {
         return  name + ";" + schwierigkeit + ";" + thema;
-    }
-    
-    public Vector getVector(){
-        return null;
     }
 }

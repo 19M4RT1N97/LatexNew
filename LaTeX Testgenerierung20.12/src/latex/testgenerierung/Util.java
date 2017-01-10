@@ -29,7 +29,9 @@ public class Util {
     static int fragenanzahl;
     static int[] anzahldif = new int[3];
     static String thema1;
-    static String thema2;
+    
+    static int single;
+    static int multiple;
     static ArrayList head = new ArrayList();
     static ArrayList dif1 = new ArrayList();
     static ArrayList dif2 = new ArrayList();
@@ -58,13 +60,23 @@ public class Util {
         }
     }
 
-    public static void ThemenRead(String jtfthema1, String jtfthema2) {
+    public static void ThemenRead(String jtfthema1) {
         // Die beiden Felder des Thementabs werden eingelesen und gespeichert
-        //!!ACHTUNG!! THEMA2 DARF LEER SEIN
+        
         thema1 = jtfthema1;
-        if (!jtfthema2.equals("")) {
-            thema2 = jtfthema2;
+    }
+
+    public static void setSinlgeMultiple(String multi, String si) {
+        if (!si.equals("")) {
+            single = Integer.parseInt(si);
         }
+        if (!multi.equals("")) {
+            multiple = Integer.parseInt(multi);
+        }
+    }
+
+    public static String backtoTopic() {
+        return "";
     }
 
     public static boolean SumDif() {
@@ -159,7 +171,6 @@ public class Util {
     }
 
     public static DefaultTableModel fillTable(DefaultTableModel dm) {
-
         if (anzahldif[0] > 0) {
             ArrayList diftemp = (ArrayList) dif1.clone();
             for (int i = 0; i < anzahldif[0];) {
@@ -171,12 +182,23 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                        QuestionList.addLast(q);
-                        diftemp.remove(rindex);
+                        if(single==0&&multiple==0){
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        }else if (single != 0 && isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                            single-=1;
+                        } else if (multiple != 0 && !isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                            multiple-=1;
+                        }
                     }
                 }
-
             }
         }
         if (anzahldif[1] > 0) {
@@ -190,9 +212,19 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                        QuestionList.addLast(q);
-                        diftemp.remove(rindex);
+                        if(single==0&&multiple==0){
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        }else if (single != 0 && isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        } else if (multiple != 0 && !isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        }
                     }
                 }
             }
@@ -208,10 +240,19 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                        dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                        QuestionList.addLast(q);
-                        i++;
-                        diftemp.remove(rindex);
+                       if(single==0&&multiple==0){
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        }else if (single != 0 && isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        } else if (multiple != 0 && !isSingle(q)) {
+                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                            QuestionList.addLast(q);
+                            diftemp.remove(rindex);
+                        }
                     }
                 }
             }
@@ -254,6 +295,16 @@ public class Util {
             }
         }
         return dm;
+    }
+
+    public static boolean isSingle(Question q) {
+        Boolean issingle = false;
+        for (String text : q.text) {
+            if (text.contains("$(=1)$")) {
+                issingle = true;
+            }
+        }
+        return issingle;
     }
 
     public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
