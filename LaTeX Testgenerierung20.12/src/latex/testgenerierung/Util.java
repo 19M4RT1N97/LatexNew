@@ -29,7 +29,7 @@ public class Util {
     static int fragenanzahl;
     static int[] anzahldif = new int[3];
     static String thema1;
-    
+
     static int single;
     static int multiple;
     static ArrayList head = new ArrayList();
@@ -62,7 +62,7 @@ public class Util {
 
     public static void ThemenRead(String jtfthema1) {
         // Die beiden Felder des Thementabs werden eingelesen und gespeichert
-        
+
         thema1 = jtfthema1;
     }
 
@@ -77,6 +77,13 @@ public class Util {
 
     public static String backtoTopic() {
         return "";
+    }
+
+    public static void BacktoMultiSingel() {
+        //Falls Zurückbutton gedrückt Textfelder der Schwierigkeit geleert
+        for (int i = 0; i < anzahldif.length; i++) {
+            anzahldif[i] = 0;
+        }
     }
 
     public static boolean SumDif() {
@@ -182,20 +189,20 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                        if(single==0&&multiple==0){
+                        if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                        }else if (single != 0 && isSingle(q)) {
+                        } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            single-=1;
+                            single -= 1;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            multiple-=1;
+                            multiple -= 1;
                         }
                     }
                 }
@@ -212,11 +219,11 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                        if(single==0&&multiple==0){
+                        if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                        }else if (single != 0 && isSingle(q)) {
+                        } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
@@ -240,11 +247,11 @@ public class Util {
                     Question q = new Question(split);
                     i++;
                     if (q.thema.contains(thema1)) {
-                       if(single==0&&multiple==0){
+                        if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                        }else if (single != 0 && isSingle(q)) {
+                        } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
@@ -316,30 +323,5 @@ public class Util {
         System.out.println("" + QuestionList.get(row).toString());
         return dm;
 
-    }
-
-    public static void BacktoMultiSingel() {
-        //Falls Zurückbutton gedrückt Textfelder der Schwierigkeit geleert
-        for (int i = 0; i < anzahldif.length; i++) {
-            anzahldif[i] = 0;
-        }
-    }
-
-    public static void createLaTexDoc(String path) throws IOException {
-        LinkedList<String> LinkedL;
-        LinkedL = new LinkedList<>();
-        try (FileWriter writer = new FileWriter(path)) {
-            String header = head.toString();
-            String[] headerArray = header.split(";");
-
-            for (String headerArray1 : headerArray) {
-
-                writer.write(headerArray1);
-            }
-            // LinkedList von jTable holen und Werte bzw. Questions hinzufügen
-            for (int i = 0; i < LinkedL.size(); i++) {
-                writer.write(LinkedL.get(i));
-            }
-        }
     }
 }

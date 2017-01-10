@@ -617,12 +617,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         JFileChooser jfc = new JFileChooser();
         jfc.showSaveDialog(jfc);
-        try {
-            //   Util.FileSave((DefaultTableModel) jTable1.getModel(), jfc.getSelectedFile().getAbsolutePath());
-            Util.createLaTexDoc(jfc.getSelectedFile().getAbsolutePath());
-        } catch (IOException ex) {
-            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }//GEN-LAST:event_jButton11ActionPerformed
 
     private void BTNsearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNsearchActionPerformed
