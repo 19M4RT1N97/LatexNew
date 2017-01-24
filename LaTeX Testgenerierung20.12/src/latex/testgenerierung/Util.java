@@ -28,8 +28,7 @@ public class Util {
 
     static int fragenanzahl;
     static int[] anzahldif = new int[3];
-    static String thema1;
-
+    static LinkedList<String> thema = new LinkedList<>();
     static int single;
     static int multiple;
     static ArrayList head = new ArrayList();
@@ -60,12 +59,91 @@ public class Util {
         }
     }
 
-    public static void ThemenRead(String jtfthema1) {
-        // Die beiden Felder des Thementabs werden eingelesen und gespeichert
-
-        thema1 = jtfthema1;
+    public static LinkedList themenRead(){
+        for(int index=0;index<dif1.size();index++){
+         String difficulty1= dif1.get(index).toString();
+         String[] dif1Array = difficulty1.split(";");
+         HeadAtt ha = new HeadAtt(dif1Array);
+         if(!thema.contains(ha.Thema)){
+             thema.add(ha.Thema);
+         }
+        }
+         for(int index=0;index<dif2.size();index++){
+         String difficulty1= dif2.get(index).toString();
+         String[] dif1Array = difficulty1.split(";");
+         HeadAtt ha = new HeadAtt(dif1Array);
+         if(!thema.contains(ha.Thema)){
+             thema.add(ha.Thema);
+         }
+        }
+          for(int index=0;index<dif3.size();index++){
+         String difficulty1= dif3.get(index).toString();
+         String[] dif1Array = difficulty1.split(";");
+         HeadAtt ha = new HeadAtt(dif1Array);
+         if(!thema.contains(ha.Thema)){
+             thema.add(ha.Thema);
+         }
+        }
+        return  thema;
     }
-
+    
+    public static int getThemencount(String thema){
+        int  anzahl=0;
+        for(int index=0;index<dif1.size();index++){
+         String difficulty1= dif1.get(index).toString();
+         String[] dif1Array = difficulty1.split(";");
+         HeadAtt ha = new HeadAtt(dif1Array);
+         if(thema.equals(ha.Thema)){
+            anzahl++;     
+         }
+        }
+         for(int index=0;index<dif2.size();index++){
+         String difficulty2= dif2.get(index).toString();
+         String[] dif2Array = difficulty2.split(";");
+         HeadAtt ha = new HeadAtt(dif2Array);
+         if(thema.equals(ha.Thema)){
+            anzahl++;     
+         }
+        }
+          for(int index=0;index<dif3.size();index++){
+         String difficulty3= dif3.get(index).toString();
+         String[] dif3Array = difficulty3.split(";");
+         HeadAtt ha = new HeadAtt(dif3Array);
+         if(thema.equals(ha.Thema)){
+            anzahl++;     
+         }
+        }
+        return anzahl;
+    }
+    public static int[] getDifMaxCount(String thema){
+        int[]  anzahl=new int[3];
+        for(int index=0;index<dif1.size();index++){
+         String difficulty1= dif1.get(index).toString();
+         String[] dif1Array = difficulty1.split(";");
+         HeadAtt ha = new HeadAtt(dif1Array);
+         if(thema.equals(ha.Thema)){
+            anzahl[0]++;     
+         }
+        }
+         for(int index=0;index<dif2.size();index++){
+         String difficulty2= dif2.get(index).toString();
+         String[] dif2Array = difficulty2.split(";");
+         HeadAtt ha = new HeadAtt(dif2Array);
+         if(thema.equals(ha.Thema)){
+            anzahl[1]++;     
+         }
+        }
+          for(int index=0;index<dif3.size();index++){
+         String difficulty3= dif3.get(index).toString();
+         String[] dif3Array = difficulty3.split(";");
+         HeadAtt ha = new HeadAtt(dif3Array);
+         if(thema.equals(ha.Thema)){
+            anzahl[2]++;     
+         }
+        }
+        return anzahl;
+    }
+    
     public static void setSinlgeMultiple(String multi, String si) {
         if (!si.equals("")) {
             single = Integer.parseInt(si);
@@ -148,7 +226,7 @@ public class Util {
             System.out.println("" + head.toString());
             System.out.println("" + dif1.toString());
             System.out.println("" + dif2.toString());
-
+            System.out.println("" + dif3.toString());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -177,7 +255,7 @@ public class Util {
         }
     }
 
-    public static DefaultTableModel fillTable(DefaultTableModel dm) {
+    public static DefaultTableModel fillTable(DefaultTableModel dm,String thema) {
         if (anzahldif[0] > 0) {
             ArrayList diftemp = (ArrayList) dif1.clone();
             for (int i = 0; i < anzahldif[0];) {
@@ -187,22 +265,25 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    i++;
-                    if (q.thema.contains(thema1)) {
+                    if (q.thema.contains(thema)) {
+                        i++;
                         if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            i++;
                         } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
                             single -= 1;
+                            i++;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
                             multiple -= 1;
+                            i++;
                         }
                     }
                 }
@@ -217,20 +298,25 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    i++;
-                    if (q.thema.contains(thema1)) {
+                    if (q.thema.contains(thema)) {
+                        i++;
                         if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            i++;
                         } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            single-=1;
+                            i++;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            multiple-=1;
+                            i++;
                         }
                     }
                 }
@@ -245,20 +331,24 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    i++;
-                    if (q.thema.contains(thema1)) {
+                    if (q.thema.contains(thema)) {
                         if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            i++;
                         } else if (single != 0 && isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            single-=1;
+                            i++;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
+                            multiple-=1;
+                            i++;
                         }
                     }
                 }
@@ -306,7 +396,7 @@ public class Util {
 
     public static boolean isSingle(Question q) {
         Boolean issingle = false;
-        for (String text : q.text) {
+        for (String text : q.textvorantworten) {
             if (text.contains("$(=1)$")) {
                 issingle = true;
             }
@@ -320,8 +410,48 @@ public class Util {
             QuestionList.remove(row);
             dm.removeRow(row);
         }
-        System.out.println("" + QuestionList.get(row).toString());
         return dm;
+    }
+    public static void createLaTexDoc(String path) throws IOException {
+        LinkedList<String> LinkedL;
+        LinkedList<Question> Fragen = new LinkedList<Question>();
+        LinkedL = new LinkedList<>();
+        String[] text;
+        Question q;
+        try (FileWriter writer = new FileWriter(path)) {
+            String header= head.get(0).toString();
+            String[] headerArray=header.split(";");
+            String end = head.get(1).toString();
+            String[] endArray= end.split(";");
+            
+            for (String ha : headerArray) {
+                
+            
+                writer.write(ha);
+              writer.write(System.getProperty( "line.separator" ));
+            }
+//susi nochmal anschaun            
+            for(int i=0;i<QuestionList.size();i++)
+            {
+                q= QuestionList.get(i);
+                text= new String[q.text.length];
+                text= q.text;
+                for(int x=0;x<text.length;x++)
+                {
+                   
+                    writer.write(System.getProperty( "line.separator" ));
+                    writer.write(text[x]);
 
+                }
+            }
+            
+             
+            for (String ea : endArray) {
+              writer.write(ea);
+              writer.write(System.getProperty( "line.separator" ));
+
+            }
+          
+        }
     }
 }
