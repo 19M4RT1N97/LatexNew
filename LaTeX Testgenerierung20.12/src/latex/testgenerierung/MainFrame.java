@@ -30,7 +30,8 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultTableModel dm = new DefaultTableModel(new String[]{"Name", "Topic", "Schwierigkeit"}, 0);
         jTable1.setModel(dm);
         jTabbedPane1.enable(false);
-
+        DefaultTableModel themenmodel=new DefaultTableModel(new String[]{"Thema"},0);
+        JTableThemenListe.setModel(themenmodel);
     }
 
     /**
@@ -47,6 +48,9 @@ public class MainFrame extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         CBOThema = new javax.swing.JComboBox<>();
+        JBTNThemazuListe = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        JTableThemenListe = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFAnzahl = new javax.swing.JTextField();
@@ -54,14 +58,6 @@ public class MainFrame extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         LBLanzahlmax = new javax.swing.JLabel();
-        jPanel4 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        JTFmultianzahl = new javax.swing.JTextField();
-        JTFsingleanzahl = new javax.swing.JTextField();
-        LBLfragencount = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
@@ -74,7 +70,6 @@ public class MainFrame extends javax.swing.JFrame {
         LBLdif1 = new javax.swing.JLabel();
         LBLdif3 = new javax.swing.JLabel();
         LBLdif2 = new javax.swing.JLabel();
-        LBLdiffcount = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         LBLDif1Max = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -108,33 +103,65 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Themengebiet 1");
+        jLabel2.setText("Themengebiete: ");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        JBTNThemazuListe.setText("+");
+        JBTNThemazuListe.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JBTNThemazuListeActionPerformed(evt);
+            }
+        });
+
+        JTableThemenListe.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null},
+                {null},
+                {null},
+                {null}
+            },
+            new String [] {
+                "Title 1"
+            }
+        ));
+        jScrollPane2.setViewportView(JTableThemenListe);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton4)
-                .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(75, 75, 75)
+                .addGap(190, 190, 190)
                 .addComponent(jLabel2)
-                .addGap(149, 149, 149)
-                .addComponent(CBOThema, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(254, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(CBOThema, 0, 150, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addComponent(JBTNThemazuListe)
+                        .addContainerGap(191, Short.MAX_VALUE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton4)
+                        .addContainerGap())))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(156, 156, 156)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap(168, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(CBOThema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
-                    .addComponent(CBOThema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-                .addComponent(jButton4)
+                    .addComponent(JBTNThemazuListe))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(282, 282, 282)
+                        .addComponent(jButton4))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -192,7 +219,7 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jTFAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
                     .addComponent(LBLanzahlmax))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 328, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
@@ -200,89 +227,6 @@ public class MainFrame extends javax.swing.JFrame {
         );
 
         jTabbedPane1.addTab("Anzahl", jPanel2);
-
-        jButton5.setText("Zurück");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-
-        jButton6.setText("Weiter");
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
-            }
-        });
-
-        jLabel4.setText("Multiple");
-
-        jLabel5.setText("Single");
-
-        JTFmultianzahl.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                JTFmultianzahlKeyReleased(evt);
-            }
-        });
-
-        JTFsingleanzahl.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                JTFsingleanzahlKeyReleased(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap(559, Short.MAX_VALUE)
-                        .addComponent(jButton5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton6))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addGap(109, 109, 109)
-                                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel4)))
-                            .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(LBLfragencount, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(157, 157, 157)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(JTFmultianzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(JTFsingleanzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel4Layout.createSequentialGroup()
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(39, 39, 39)
-                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(JTFmultianzahl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(LBLfragencount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(56, 56, 56)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(JTFsingleanzahl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 320, Short.MAX_VALUE)
-                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton6)
-                    .addComponent(jButton5))
-                .addContainerGap())
-        );
-
-        jTabbedPane1.addTab("Multiple/Single", jPanel4);
 
         jPanel5.setPreferredSize(new java.awt.Dimension(620, 470));
 
@@ -305,24 +249,6 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel7.setText("2");
 
         jLabel8.setText("3");
-
-        JTFdifficulty2.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                JTFdifficulty2KeyReleased(evt);
-            }
-        });
-
-        JTFdifficulty3.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                JTFdifficulty3KeyReleased(evt);
-            }
-        });
-
-        JTFdifficulty1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                JTFdifficulty1KeyReleased(evt);
-            }
-        });
 
         jLabel9.setText("Max:");
 
@@ -380,55 +306,47 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jButton8)
                 .addContainerGap())
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LBLdiffcount, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(LBLdiffcount, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addContainerGap(473, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton8)
+                    .addComponent(jButton7))
+                .addContainerGap())
+            .addGroup(jPanel5Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton8)
-                            .addComponent(jButton7))
-                        .addContainerGap())
+                            .addComponent(jLabel9)
+                            .addComponent(LBLDif1Max))
+                        .addGap(128, 128, 128)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(LBLDif2Max)))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel9)
-                                    .addComponent(LBLDif1Max))
-                                .addGap(128, 128, 128)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(LBLDif2Max)))
-                            .addGroup(jPanel5Layout.createSequentialGroup()
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(JTFdifficulty1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(LBLdif1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel6)))
-                                .addGap(122, 122, 122)
-                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel7)
-                                    .addComponent(LBLdif2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(JTFdifficulty2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 155, Short.MAX_VALUE)
+                            .addComponent(JTFdifficulty1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(LBLdif1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jLabel6)))
+                        .addGap(122, 122, 122)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(LBLdif3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(JTFdifficulty3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel8))
-                            .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(jLabel11)
-                                .addComponent(LBLDif3Max)))
-                        .addGap(108, 108, 108))))
+                            .addComponent(jLabel7)
+                            .addComponent(LBLdif2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(JTFdifficulty2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(LBLdif3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(JTFdifficulty3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel8))
+                    .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel11)
+                        .addComponent(LBLDif3Max)))
+                .addGap(108, 108, 108))
         );
 
         jTabbedPane1.addTab("Schwierigkeit", jPanel5);
@@ -551,7 +469,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addGap(89, 89, 89)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
                 .addComponent(jButton13)
                 .addContainerGap())
         );
@@ -626,8 +544,6 @@ public class MainFrame extends javax.swing.JFrame {
             int index = jTabbedPane1.getSelectedIndex();
             jTabbedPane1.setSelectedIndex(index + 1);
             Util.FragenAnzahl(jTFAnzahl.getText());
-            LBLdiffcount.setText(jTFAnzahl.getText());
-            LBLfragencount.setText(jTFAnzahl.getText());
         } else if (jTFAnzahl.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Geben sie eine Anzahl an gewünschten Fragen an.");
         } else if (!number) {
@@ -647,22 +563,6 @@ public class MainFrame extends javax.swing.JFrame {
         jTabbedPane1.setSelectedIndex(index + 1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        // TODO add your handling code here:
-        int index = jTabbedPane1.getSelectedIndex();
-        jTabbedPane1.setSelectedIndex(index + 1);
-        Util.setSinlgeMultiple(JTFmultianzahl.getText(), JTFsingleanzahl.getText());
-    }//GEN-LAST:event_jButton6ActionPerformed
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
-        int index = jTabbedPane1.getSelectedIndex();
-        jTFAnzahl.setText("");
-        jTabbedPane1.setSelectedIndex(index - 1);
-        JTFmultianzahl.setText(Util.backtoTopic());
-        JTFsingleanzahl.setText(Util.backtoTopic());
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         // TODO add your handling code here:
         Util.DiffFragenanzahl(JTFdifficulty1.getText(), JTFdifficulty2.getText(), JTFdifficulty3.getText());
@@ -681,8 +581,7 @@ public class MainFrame extends javax.swing.JFrame {
         JTFdifficulty1.setText("");
         JTFdifficulty2.setText("");
         JTFdifficulty3.setText("");
-        LBLdiffcount.setText(jTFAnzahl.getText());
-        Util.BacktoMultiSingel();
+        jTFAnzahl.setText("");
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
@@ -733,110 +632,20 @@ public class MainFrame extends javax.swing.JFrame {
         jTable1.setModel(dmtemp);
     }//GEN-LAST:event_BTNloeschenActionPerformed
 
-    private void JTFdifficulty1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty1KeyReleased
-        // TODO add your handling code here:
-        boolean number = true;
-        int zahl = 0;
-        if (!JTFdifficulty1.getText().isEmpty()) {
-            try {
-                zahl = Integer.parseInt(JTFdifficulty1.getText());
-            } catch (NumberFormatException e) {
-                number = false;
-                JOptionPane.showMessageDialog(this, "Sie haben keine Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-            int fragenzahl = Integer.parseInt(LBLdiffcount.getText());
-            if (number && !(zahl > fragenzahl)) {
-                LBLdiffcount.setText((fragenzahl - zahl) + "");
-            } else if (zahl > fragenzahl) {
-                JOptionPane.showMessageDialog(this, "Sie haben eine zu hohe Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-        }
-    }//GEN-LAST:event_JTFdifficulty1KeyReleased
-
-    private void JTFdifficulty2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty2KeyReleased
-        // TODO add your handling code here:
-        boolean number = true;
-        int zahl = 0;
-        if (!JTFdifficulty2.getText().isEmpty()) {
-            try {
-                zahl = Integer.parseInt(JTFdifficulty2.getText());
-            } catch (NumberFormatException e) {
-                number = false;
-                JOptionPane.showMessageDialog(this, "Sie haben keine Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-            int fragenzahl = Integer.parseInt(LBLdiffcount.getText());
-            if (number && !(zahl > fragenzahl)) {
-                LBLdiffcount.setText((fragenzahl - zahl) + "");
-            } else if (zahl > fragenzahl) {
-                JOptionPane.showMessageDialog(this, "Sie haben eine zu hohe Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-        }
-    }//GEN-LAST:event_JTFdifficulty2KeyReleased
-
-    private void JTFdifficulty3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty3KeyReleased
-        // TODO add your handling code here:
-        boolean number = true;
-        int zahl = 0;
-        if (!JTFdifficulty3.getText().isEmpty()) {
-            try {
-                zahl = Integer.parseInt(JTFdifficulty3.getText());
-            } catch (NumberFormatException e) {
-                number = false;
-                JOptionPane.showMessageDialog(this, "Sie haben keine Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-            int fragenzahl = Integer.parseInt(LBLdiffcount.getText());
-            if (number && !(zahl > fragenzahl)) {
-                LBLdiffcount.setText((fragenzahl - zahl) + "");
-            } else if (zahl > fragenzahl) {
-                JOptionPane.showMessageDialog(this, "Sie haben eine zu hohe Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-        }
-    }//GEN-LAST:event_JTFdifficulty3KeyReleased
-
-    private void JTFmultianzahlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFmultianzahlKeyReleased
-        // TODO add your handling code here:
-        boolean number = true;
-        int zahl = 0;
-        if (!JTFmultianzahl.getText().isEmpty()) {
-            try {
-                zahl = Integer.parseInt(JTFmultianzahl.getText());
-            } catch (NumberFormatException e) {
-                number = false;
-                JOptionPane.showMessageDialog(this, "Sie haben keine Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-            int fragenzahl = Integer.parseInt(LBLfragencount.getText());
-            if (number && !(zahl > fragenzahl)) {
-                LBLfragencount.setText((fragenzahl - zahl) + "");
-            } else if (zahl > fragenzahl) {
-                JOptionPane.showMessageDialog(this, "Sie haben eine zu hohe Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-        }
-    }//GEN-LAST:event_JTFmultianzahlKeyReleased
-
-    private void JTFsingleanzahlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFsingleanzahlKeyReleased
-        boolean number = true;
-        int zahl = 0;
-        if (!JTFsingleanzahl.getText().isEmpty()) {
-            try {
-                zahl = Integer.parseInt(JTFsingleanzahl.getText());
-            } catch (NumberFormatException e) {
-                number = false;
-                JOptionPane.showMessageDialog(this, "Sie haben keine Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-            int fragenzahl = Integer.parseInt(LBLfragencount.getText());
-            if (number && !(zahl > fragenzahl)) {
-                LBLfragencount.setText((fragenzahl - zahl) + "");
-            } else if (zahl > fragenzahl) {
-                JOptionPane.showMessageDialog(this, "Sie haben eine zu hohe Zahl eingegeben. \n Bitte überprüfen Sie Ihre Eingabe.");
-            }
-        }
-    }//GEN-LAST:event_JTFsingleanzahlKeyReleased
-
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
         int index = jTabbedPane1.getSelectedIndex();
         jTabbedPane1.setSelectedIndex(index - 1);
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void JBTNThemazuListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNThemazuListeActionPerformed
+        // TODO add your handling code here:
+        if(CBOThema.getItemCount()>0){
+            DefaultTableModel dmtemp =(DefaultTableModel) JTableThemenListe.getModel();
+            dmtemp.addRow(new String[]{CBOThema.getItemAt(CBOThema.getSelectedIndex())});
+            CBOThema.removeItemAt(CBOThema.getSelectedIndex());
+        }
+    }//GEN-LAST:event_JBTNThemazuListeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -880,12 +689,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton BTNloeschen;
     private javax.swing.JButton BTNsearch;
     private javax.swing.JComboBox<String> CBOThema;
+    private javax.swing.JButton JBTNThemazuListe;
     private javax.swing.JTextField JTFdiff;
     private javax.swing.JTextField JTFdifficulty1;
     private javax.swing.JTextField JTFdifficulty2;
     private javax.swing.JTextField JTFdifficulty3;
-    private javax.swing.JTextField JTFmultianzahl;
-    private javax.swing.JTextField JTFsingleanzahl;
+    private javax.swing.JTable JTableThemenListe;
     private javax.swing.JLabel LBLDif1Max;
     private javax.swing.JLabel LBLDif2Max;
     private javax.swing.JLabel LBLDif3Max;
@@ -893,16 +702,12 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel LBLdif1;
     private javax.swing.JLabel LBLdif2;
     private javax.swing.JLabel LBLdif3;
-    private javax.swing.JLabel LBLdiffcount;
-    private javax.swing.JLabel LBLfragencount;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
@@ -912,8 +717,6 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
@@ -924,11 +727,11 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JTextField jTFAnzahl;
     private javax.swing.JTabbedPane jTabbedPane1;

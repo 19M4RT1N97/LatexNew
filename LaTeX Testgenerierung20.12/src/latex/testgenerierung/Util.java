@@ -267,7 +267,7 @@ public class Util {
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
                     if (q.thema.contains(thema)) {
-                        i++;
+
                         if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
@@ -300,7 +300,7 @@ public class Util {
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
                     if (q.thema.contains(thema)) {
-                        i++;
+
                         if (single == 0 && multiple == 0) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
@@ -452,27 +452,44 @@ public class Util {
                 }
 
                 for (int runninganswer = 4; runninganswer != 0;) {
-                    int r = round((int) Math.random() * q.antworten.size());
-                    
-                    if (q.antworten.get(r).contains("% @correct")) {
-                        count--;
-                        writer.write(q.antworten.get(r));
-                        writer.write(System.getProperty("line.separator"));
-                        writer.write(q.antworten.get(r + 1));
-                        writer.write(System.getProperty("line.separator"));
-                        q.antworten.remove(r + 1);
-                        q.antworten.remove(r);
-                        runninganswer--;
-                        if(count==0){
-                            count--;
-                        }
-                    } else if (count < runninganswer) {
-                        writer.write(q.antworten.get(r));
-                        writer.write(System.getProperty("line.separator"));
-                        q.antworten.remove(r);
-                        runninganswer--;
+                    int r = (int) round((Math.random() * 10) * q.antworten.size());
+                    System.out.println("" + r / 10);
+                    r /= 10;
+                    if (r < 0) {
+                        r = 0;
                     }
-
+                    if ((r < q.antworten.size())) {
+                        if (q.antworten.get(r).contains("% @correct")) {
+                            count--;
+                            writer.write(q.antworten.get(r));
+                            writer.write(System.getProperty("line.separator"));
+                            writer.write(q.antworten.get(r + 1));
+                            writer.write(System.getProperty("line.separator"));
+                            q.antworten.remove(r + 1);
+                            q.antworten.remove(r);
+                            runninganswer--;
+                            if (count == 0) {
+                                count--;
+                            }
+                        } else if (r != 0 && q.antworten.get(r - 1).contains("% @correct")) {
+                            count--;
+                            writer.write(q.antworten.get(r-1));
+                            writer.write(System.getProperty("line.separator"));
+                            writer.write(q.antworten.get(r));
+                            writer.write(System.getProperty("line.separator"));
+                            q.antworten.remove(r);
+                            q.antworten.remove(r-1);
+                            runninganswer--;
+                            if (count == 0) {
+                                count--;
+                            }
+                        } else if (count < runninganswer) {
+                            writer.write(q.antworten.get(r));
+                            writer.write(System.getProperty("line.separator"));
+                            q.antworten.remove(r);
+                            runninganswer--;
+                        }
+                    }
                 }
                 for (int j = 0; j < q.textnachantworten.size(); j++) {
                     writer.write(q.textnachantworten.get(j));
