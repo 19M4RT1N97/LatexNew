@@ -59,91 +59,92 @@ public class Util {
         }
     }
 
-    public static LinkedList themenRead(){
-        for(int index=0;index<dif1.size();index++){
-         String difficulty1= dif1.get(index).toString();
-         String[] dif1Array = difficulty1.split(";");
-         HeadAtt ha = new HeadAtt(dif1Array);
-         if(!thema.contains(ha.Thema)){
-             thema.add(ha.Thema);
-         }
+    public static LinkedList themenRead() {
+        for (int index = 0; index < dif1.size(); index++) {
+            String difficulty1 = dif1.get(index).toString();
+            String[] dif1Array = difficulty1.split(";");
+            HeadAtt ha = new HeadAtt(dif1Array);
+            if (!thema.contains(ha.Thema)) {
+                thema.add(ha.Thema);
+            }
         }
-         for(int index=0;index<dif2.size();index++){
-         String difficulty1= dif2.get(index).toString();
-         String[] dif1Array = difficulty1.split(";");
-         HeadAtt ha = new HeadAtt(dif1Array);
-         if(!thema.contains(ha.Thema)){
-             thema.add(ha.Thema);
-         }
+        for (int index = 0; index < dif2.size(); index++) {
+            String difficulty1 = dif2.get(index).toString();
+            String[] dif1Array = difficulty1.split(";");
+            HeadAtt ha = new HeadAtt(dif1Array);
+            if (!thema.contains(ha.Thema)) {
+                thema.add(ha.Thema);
+            }
         }
-          for(int index=0;index<dif3.size();index++){
-         String difficulty1= dif3.get(index).toString();
-         String[] dif1Array = difficulty1.split(";");
-         HeadAtt ha = new HeadAtt(dif1Array);
-         if(!thema.contains(ha.Thema)){
-             thema.add(ha.Thema);
-         }
+        for (int index = 0; index < dif3.size(); index++) {
+            String difficulty1 = dif3.get(index).toString();
+            String[] dif1Array = difficulty1.split(";");
+            HeadAtt ha = new HeadAtt(dif1Array);
+            if (!thema.contains(ha.Thema)) {
+                thema.add(ha.Thema);
+            }
         }
-        return  thema;
+        return thema;
     }
-    
-    public static int getThemencount(String thema){
-        int  anzahl=0;
-        for(int index=0;index<dif1.size();index++){
-         String difficulty1= dif1.get(index).toString();
-         String[] dif1Array = difficulty1.split(";");
-         HeadAtt ha = new HeadAtt(dif1Array);
-         if(thema.equals(ha.Thema)){
-            anzahl++;     
-         }
+
+    public static int getThemencount(String thema) {
+        int anzahl = 0;
+        for (int index = 0; index < dif1.size(); index++) {
+            String difficulty1 = dif1.get(index).toString();
+            String[] dif1Array = difficulty1.split(";");
+            HeadAtt ha = new HeadAtt(dif1Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl++;
+            }
         }
-         for(int index=0;index<dif2.size();index++){
-         String difficulty2= dif2.get(index).toString();
-         String[] dif2Array = difficulty2.split(";");
-         HeadAtt ha = new HeadAtt(dif2Array);
-         if(thema.equals(ha.Thema)){
-            anzahl++;     
-         }
+        for (int index = 0; index < dif2.size(); index++) {
+            String difficulty2 = dif2.get(index).toString();
+            String[] dif2Array = difficulty2.split(";");
+            HeadAtt ha = new HeadAtt(dif2Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl++;
+            }
         }
-          for(int index=0;index<dif3.size();index++){
-         String difficulty3= dif3.get(index).toString();
-         String[] dif3Array = difficulty3.split(";");
-         HeadAtt ha = new HeadAtt(dif3Array);
-         if(thema.equals(ha.Thema)){
-            anzahl++;     
-         }
+        for (int index = 0; index < dif3.size(); index++) {
+            String difficulty3 = dif3.get(index).toString();
+            String[] dif3Array = difficulty3.split(";");
+            HeadAtt ha = new HeadAtt(dif3Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl++;
+            }
         }
         return anzahl;
     }
-    public static int[] getDifMaxCount(String thema){
-        int[]  anzahl=new int[3];
-        for(int index=0;index<dif1.size();index++){
-         String difficulty1= dif1.get(index).toString();
-         String[] dif1Array = difficulty1.split(";");
-         HeadAtt ha = new HeadAtt(dif1Array);
-         if(thema.equals(ha.Thema)){
-            anzahl[0]++;     
-         }
+
+    public static int[] getDifMaxCount(String thema) {
+        int[] anzahl = new int[3];
+        for (int index = 0; index < dif1.size(); index++) {
+            String difficulty1 = dif1.get(index).toString();
+            String[] dif1Array = difficulty1.split(";");
+            HeadAtt ha = new HeadAtt(dif1Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl[0]++;
+            }
         }
-         for(int index=0;index<dif2.size();index++){
-         String difficulty2= dif2.get(index).toString();
-         String[] dif2Array = difficulty2.split(";");
-         HeadAtt ha = new HeadAtt(dif2Array);
-         if(thema.equals(ha.Thema)){
-            anzahl[1]++;     
-         }
+        for (int index = 0; index < dif2.size(); index++) {
+            String difficulty2 = dif2.get(index).toString();
+            String[] dif2Array = difficulty2.split(";");
+            HeadAtt ha = new HeadAtt(dif2Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl[1]++;
+            }
         }
-          for(int index=0;index<dif3.size();index++){
-         String difficulty3= dif3.get(index).toString();
-         String[] dif3Array = difficulty3.split(";");
-         HeadAtt ha = new HeadAtt(dif3Array);
-         if(thema.equals(ha.Thema)){
-            anzahl[2]++;     
-         }
+        for (int index = 0; index < dif3.size(); index++) {
+            String difficulty3 = dif3.get(index).toString();
+            String[] dif3Array = difficulty3.split(";");
+            HeadAtt ha = new HeadAtt(dif3Array);
+            if (thema.equals(ha.Thema)) {
+                anzahl[2]++;
+            }
         }
         return anzahl;
     }
-    
+
     public static void setSinlgeMultiple(String multi, String si) {
         if (!si.equals("")) {
             single = Integer.parseInt(si);
@@ -255,7 +256,7 @@ public class Util {
         }
     }
 
-    public static DefaultTableModel fillTable(DefaultTableModel dm,String thema) {
+    public static DefaultTableModel fillTable(DefaultTableModel dm, String thema) {
         if (anzahldif[0] > 0) {
             ArrayList diftemp = (ArrayList) dif1.clone();
             for (int i = 0; i < anzahldif[0];) {
@@ -309,13 +310,13 @@ public class Util {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            single-=1;
+                            single -= 1;
                             i++;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            multiple-=1;
+                            multiple -= 1;
                             i++;
                         }
                     }
@@ -341,13 +342,13 @@ public class Util {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            single-=1;
+                            single -= 1;
                             i++;
                         } else if (multiple != 0 && !isSingle(q)) {
                             dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
                             QuestionList.addLast(q);
                             diftemp.remove(rindex);
-                            multiple-=1;
+                            multiple -= 1;
                             i++;
                         }
                     }
@@ -412,46 +413,79 @@ public class Util {
         }
         return dm;
     }
+
     public static void createLaTexDoc(String path) throws IOException {
-        LinkedList<String> LinkedL;
-        LinkedList<Question> Fragen = new LinkedList<Question>();
-        LinkedL = new LinkedList<>();
-        String[] text;
         Question q;
         try (FileWriter writer = new FileWriter(path)) {
-            String header= head.get(0).toString();
-            String[] headerArray=header.split(";");
+            String header = head.get(0).toString();
+            String[] headerArray = header.split(";");
             String end = head.get(1).toString();
-            String[] endArray= end.split(";");
-            
+            String[] endArray = end.split(";");
+
             for (String ha : headerArray) {
-                
-            
+
                 writer.write(ha);
-              writer.write(System.getProperty( "line.separator" ));
+                writer.write(System.getProperty("line.separator"));
             }
-//susi nochmal anschaun            
-            for(int i=0;i<QuestionList.size();i++)
-            {
-                q= QuestionList.get(i);
-                text= new String[q.text.length];
-                text= q.text;
-                for(int x=0;x<text.length;x++)
-                {
-                   
-                    writer.write(System.getProperty( "line.separator" ));
-                    writer.write(text[x]);
+
+            for (int i = 0; i < QuestionList.size(); i++) {
+                q = QuestionList.get(i);
+                writer.write(System.getProperty("line.separator"));
+                writer.write(q.name);
+                writer.write(System.getProperty("line.separator"));
+                writer.write(q.thema);
+                writer.write(System.getProperty("line.separator"));
+                writer.write(q.schwierigkeit);
+                writer.write(System.getProperty("line.separator"));
+                for (int j = 0; j < q.textvorantworten.size(); j++) {
+                    writer.write(q.textvorantworten.get(j));
+                    writer.write(System.getProperty("line.separator"));
+                }
+                int count = 0;
+                for (int j = 0; j < q.antworten.size();) {
+                    if (q.antworten.get(j).contains("% @correct")) {
+                        count++;
+                        j += 2;
+                        continue;
+                    }
+                    j++;
+                }
+
+                for (int runninganswer = 4; runninganswer != 0;) {
+                    int r = round((int) Math.random() * q.antworten.size());
+                    
+                    if (q.antworten.get(r).contains("% @correct")) {
+                        count--;
+                        writer.write(q.antworten.get(r));
+                        writer.write(System.getProperty("line.separator"));
+                        writer.write(q.antworten.get(r + 1));
+                        writer.write(System.getProperty("line.separator"));
+                        q.antworten.remove(r + 1);
+                        q.antworten.remove(r);
+                        runninganswer--;
+                        if(count==0){
+                            count--;
+                        }
+                    } else if (count < runninganswer) {
+                        writer.write(q.antworten.get(r));
+                        writer.write(System.getProperty("line.separator"));
+                        q.antworten.remove(r);
+                        runninganswer--;
+                    }
 
                 }
+                for (int j = 0; j < q.textnachantworten.size(); j++) {
+                    writer.write(q.textnachantworten.get(j));
+                    writer.write(System.getProperty("line.separator"));
+                }
             }
-            
-             
+
             for (String ea : endArray) {
-              writer.write(ea);
-              writer.write(System.getProperty( "line.separator" ));
+                writer.write(ea);
+                writer.write(System.getProperty("line.separator"));
 
             }
-          
+
         }
     }
 }
