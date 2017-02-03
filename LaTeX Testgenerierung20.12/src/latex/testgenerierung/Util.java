@@ -17,6 +17,7 @@ import java.util.LinkedList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import static java.lang.Math.round;
 
 /**
  *
@@ -87,59 +88,65 @@ public class Util {
         return thema;
     }
 
-    public static int getThemencount(String thema) {
+    public static int getThemencount(DefaultTableModel dm) {
         int anzahl = 0;
-        for (int index = 0; index < dif1.size(); index++) {
-            String difficulty1 = dif1.get(index).toString();
-            String[] dif1Array = difficulty1.split(";");
-            HeadAtt ha = new HeadAtt(dif1Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl++;
+        for (int i = 0; i < dm.getRowCount(); i++) {
+            String thema = (String) dm.getValueAt(i, 0);
+            for (int index = 0; index < dif1.size(); index++) {
+                String difficulty1 = dif1.get(index).toString();
+                String[] dif1Array = difficulty1.split(";");
+                HeadAtt ha = new HeadAtt(dif1Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl++;
+                }
             }
-        }
-        for (int index = 0; index < dif2.size(); index++) {
-            String difficulty2 = dif2.get(index).toString();
-            String[] dif2Array = difficulty2.split(";");
-            HeadAtt ha = new HeadAtt(dif2Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl++;
+            for (int index = 0; index < dif2.size(); index++) {
+                String difficulty2 = dif2.get(index).toString();
+                String[] dif2Array = difficulty2.split(";");
+                HeadAtt ha = new HeadAtt(dif2Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl++;
+                }
             }
-        }
-        for (int index = 0; index < dif3.size(); index++) {
-            String difficulty3 = dif3.get(index).toString();
-            String[] dif3Array = difficulty3.split(";");
-            HeadAtt ha = new HeadAtt(dif3Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl++;
+            for (int index = 0; index < dif3.size(); index++) {
+                String difficulty3 = dif3.get(index).toString();
+                String[] dif3Array = difficulty3.split(";");
+                HeadAtt ha = new HeadAtt(dif3Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl++;
+                }
             }
         }
         return anzahl;
     }
 
-    public static int[] getDifMaxCount(String thema) {
+    public static int[] getDifMaxCount(DefaultTableModel dm) {
         int[] anzahl = new int[3];
-        for (int index = 0; index < dif1.size(); index++) {
-            String difficulty1 = dif1.get(index).toString();
-            String[] dif1Array = difficulty1.split(";");
-            HeadAtt ha = new HeadAtt(dif1Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl[0]++;
+        for (int i = 0; i < dm.getRowCount(); i++) {
+            String thema = (String) dm.getValueAt(i, 0);
+            for (int index = 0; index < dif1.size(); index++) {
+                String difficulty1 = dif1.get(index).toString();
+                String[] dif1Array = difficulty1.split(";");
+                HeadAtt ha = new HeadAtt(dif1Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl[0]++;
+                }
             }
-        }
-        for (int index = 0; index < dif2.size(); index++) {
-            String difficulty2 = dif2.get(index).toString();
-            String[] dif2Array = difficulty2.split(";");
-            HeadAtt ha = new HeadAtt(dif2Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl[1]++;
+            for (int index = 0; index < dif2.size(); index++) {
+                String difficulty2 = dif2.get(index).toString();
+                String[] dif2Array = difficulty2.split(";");
+                HeadAtt ha = new HeadAtt(dif2Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl[1]++;
+                }
             }
-        }
-        for (int index = 0; index < dif3.size(); index++) {
-            String difficulty3 = dif3.get(index).toString();
-            String[] dif3Array = difficulty3.split(";");
-            HeadAtt ha = new HeadAtt(dif3Array);
-            if (thema.equals(ha.Thema)) {
-                anzahl[2]++;
+            for (int index = 0; index < dif3.size(); index++) {
+                String difficulty3 = dif3.get(index).toString();
+                String[] dif3Array = difficulty3.split(";");
+                HeadAtt ha = new HeadAtt(dif3Array);
+                if (thema.equals(ha.Thema)) {
+                    anzahl[2]++;
+                }
             }
         }
         return anzahl;
@@ -256,7 +263,8 @@ public class Util {
         }
     }
 
-    public static DefaultTableModel fillTable(DefaultTableModel dm, String thema) {
+    public static DefaultTableModel fillTable(DefaultTableModel questiontable, DefaultTableModel thematable) {
+
         if (anzahldif[0] > 0) {
             ArrayList diftemp = (ArrayList) dif1.clone();
             for (int i = 0; i < anzahldif[0];) {
@@ -266,25 +274,29 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    if (q.thema.contains(thema)) {
-
-                        if (single == 0 && multiple == 0) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            i++;
-                        } else if (single != 0 && isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            single -= 1;
-                            i++;
-                        } else if (multiple != 0 && !isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            multiple -= 1;
-                            i++;
+                    for (int index = 0; index < thematable.getRowCount(); index++) {
+                        if (q.thema.contains((String) thematable.getValueAt(index, 0))) {
+                            if (single == 0 && multiple == 0) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                i++;
+                                break;
+                            } else if (single != 0 && isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                single -= 1;
+                                i++;
+                                break;
+                            } else if (multiple != 0 && !isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                multiple -= 1;
+                                i++;
+                                break;
+                            }
                         }
                     }
                 }
@@ -299,25 +311,29 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    if (q.thema.contains(thema)) {
-
-                        if (single == 0 && multiple == 0) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            i++;
-                        } else if (single != 0 && isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            single -= 1;
-                            i++;
-                        } else if (multiple != 0 && !isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            multiple -= 1;
-                            i++;
+                    for (int index = 0; index < thematable.getRowCount(); index++) {
+                        if (q.thema.contains((String) thematable.getValueAt(index, 0))) {
+                            if (single == 0 && multiple == 0) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                i++;
+                                break;
+                            } else if (single != 0 && isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                single -= 1;
+                                i++;
+                                break;
+                            } else if (multiple != 0 && !isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                multiple -= 1;
+                                i++;
+                                break;
+                            }
                         }
                     }
                 }
@@ -332,30 +348,35 @@ public class Util {
                     String[] split = line.split(";");
                     HeadAtt ha = new HeadAtt(split);
                     Question q = new Question(split);
-                    if (q.thema.contains(thema)) {
-                        if (single == 0 && multiple == 0) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            i++;
-                        } else if (single != 0 && isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            single -= 1;
-                            i++;
-                        } else if (multiple != 0 && !isSingle(q)) {
-                            dm.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
-                            QuestionList.addLast(q);
-                            diftemp.remove(rindex);
-                            multiple -= 1;
-                            i++;
+                    for (int index = 0; index < thematable.getRowCount(); index++) {
+                        if (q.thema.contains((String) thematable.getValueAt(index, 0))) {
+                            if (single == 0 && multiple == 0) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                i++;
+                                break;
+                            } else if (single != 0 && isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                single -= 1;
+                                i++;
+                                break;
+                            } else if (multiple != 0 && !isSingle(q)) {
+                                questiontable.addRow(new Object[]{ha.name, ha.Thema, ha.Schwierigkeit});
+                                QuestionList.addLast(q);
+                                diftemp.remove(rindex);
+                                multiple -= 1;
+                                i++;
+                                break;
+                            }
                         }
                     }
                 }
             }
         }
-        return dm;
+        return questiontable;
     }
 
     public static DefaultTableModel fillTable(DefaultTableModel dm, int index) {
@@ -473,12 +494,12 @@ public class Util {
                             }
                         } else if (r != 0 && q.antworten.get(r - 1).contains("% @correct")) {
                             count--;
-                            writer.write(q.antworten.get(r-1));
+                            writer.write(q.antworten.get(r - 1));
                             writer.write(System.getProperty("line.separator"));
                             writer.write(q.antworten.get(r));
                             writer.write(System.getProperty("line.separator"));
                             q.antworten.remove(r);
-                            q.antworten.remove(r-1);
+                            q.antworten.remove(r - 1);
                             runninganswer--;
                             if (count == 0) {
                                 count--;

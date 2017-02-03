@@ -30,7 +30,7 @@ public class MainFrame extends javax.swing.JFrame {
         DefaultTableModel dm = new DefaultTableModel(new String[]{"Name", "Topic", "Schwierigkeit"}, 0);
         jTable1.setModel(dm);
         jTabbedPane1.enable(false);
-        DefaultTableModel themenmodel=new DefaultTableModel(new String[]{"Thema"},0);
+        DefaultTableModel themenmodel = new DefaultTableModel(new String[]{"Thema"}, 0);
         JTableThemenListe.setModel(themenmodel);
     }
 
@@ -51,6 +51,7 @@ public class MainFrame extends javax.swing.JFrame {
         JBTNThemazuListe = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         JTableThemenListe = new javax.swing.JTable();
+        BTNthemalöschen = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTFAnzahl = new javax.swing.JTextField();
@@ -126,6 +127,13 @@ public class MainFrame extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(JTableThemenListe);
 
+        BTNthemalöschen.setText("-");
+        BTNthemalöschen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BTNthemalöschenActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -139,13 +147,15 @@ public class MainFrame extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addComponent(JBTNThemazuListe)
-                        .addContainerGap(191, Short.MAX_VALUE))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4)
-                        .addContainerGap())))
+                        .addComponent(jButton4))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(BTNthemalöschen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(JBTNThemazuListe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 181, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -161,7 +171,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(jButton4))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(BTNthemalöschen)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
@@ -554,12 +566,12 @@ public class MainFrame extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
         int index = jTabbedPane1.getSelectedIndex();
-        int fragefürthemen=Util.getThemencount(CBOThema.getItemAt(CBOThema.getSelectedIndex()));
-        int[] fragenfürdif=Util.getDifMaxCount(CBOThema.getItemAt(CBOThema.getSelectedIndex()));
-        LBLDif1Max.setText(fragenfürdif[0]+"");
-        LBLDif2Max.setText(fragenfürdif[1]+"");
-        LBLDif3Max.setText(fragenfürdif[2]+"");
-        LBLanzahlmax.setText(fragefürthemen+"");
+        int fragefürthemen = Util.getThemencount((DefaultTableModel) JTableThemenListe.getModel());
+        int[] fragenfürdif = Util.getDifMaxCount((DefaultTableModel) JTableThemenListe.getModel());
+        LBLDif1Max.setText(fragenfürdif[0] + "");
+        LBLDif2Max.setText(fragenfürdif[1] + "");
+        LBLDif3Max.setText(fragenfürdif[2] + "");
+        LBLanzahlmax.setText(fragefürthemen + "");
         jTabbedPane1.setSelectedIndex(index + 1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -617,7 +629,7 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         DefaultTableModel modeltemp = null;
         if (JTFdiff.getText().isEmpty()) {
-            modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel(), CBOThema.getItemAt(CBOThema.getSelectedIndex()));
+            modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel(), (DefaultTableModel) JTableThemenListe.getModel());
         } else {
             modeltemp = Util.fillTable((DefaultTableModel) jTable1.getModel(), Integer.parseInt(JTFdiff.getText()));
         }
@@ -640,12 +652,23 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void JBTNThemazuListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JBTNThemazuListeActionPerformed
         // TODO add your handling code here:
-        if(CBOThema.getItemCount()>0){
-            DefaultTableModel dmtemp =(DefaultTableModel) JTableThemenListe.getModel();
+        if (CBOThema.getItemCount() > 0) {
+            DefaultTableModel dmtemp = (DefaultTableModel) JTableThemenListe.getModel();
             dmtemp.addRow(new String[]{CBOThema.getItemAt(CBOThema.getSelectedIndex())});
             CBOThema.removeItemAt(CBOThema.getSelectedIndex());
         }
     }//GEN-LAST:event_JBTNThemazuListeActionPerformed
+
+    private void BTNthemalöschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNthemalöschenActionPerformed
+        // TODO add your handling code here:
+        if (JTableThemenListe.getSelectedRow() != -1) {
+            DefaultTableModel dm = (DefaultTableModel) JTableThemenListe.getModel();
+            String s = (String) dm.getValueAt(JTableThemenListe.getSelectedRow(), 0);
+            CBOThema.addItem(s);
+            dm.removeRow(JTableThemenListe.getSelectedRow());
+            JTableThemenListe.setModel(dm);
+        }
+    }//GEN-LAST:event_BTNthemalöschenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -688,6 +711,7 @@ public class MainFrame extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BTNloeschen;
     private javax.swing.JButton BTNsearch;
+    private javax.swing.JButton BTNthemalöschen;
     private javax.swing.JComboBox<String> CBOThema;
     private javax.swing.JButton JBTNThemazuListe;
     private javax.swing.JTextField JTFdiff;
