@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import static java.lang.Math.round;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -91,12 +90,12 @@ public class Util {
     public static int getThemencount(DefaultTableModel dm) {
         int anzahl = 0;
         for (int i = 0; i < dm.getRowCount(); i++) {
-            String thema = (String) dm.getValueAt(i, 0);
+            String th = (String) dm.getValueAt(i, 0);
             for (int index = 0; index < dif1.size(); index++) {
                 String difficulty1 = dif1.get(index).toString();
                 String[] dif1Array = difficulty1.split(";");
                 HeadAtt ha = new HeadAtt(dif1Array);
-                if (thema.equals(ha.Thema)) {
+                if (th.equals(ha.Thema)) {
                     anzahl++;
                 }
             }
@@ -104,7 +103,7 @@ public class Util {
                 String difficulty2 = dif2.get(index).toString();
                 String[] dif2Array = difficulty2.split(";");
                 HeadAtt ha = new HeadAtt(dif2Array);
-                if (thema.equals(ha.Thema)) {
+                if (th.equals(ha.Thema)) {
                     anzahl++;
                 }
             }
@@ -112,7 +111,7 @@ public class Util {
                 String difficulty3 = dif3.get(index).toString();
                 String[] dif3Array = difficulty3.split(";");
                 HeadAtt ha = new HeadAtt(dif3Array);
-                if (thema.equals(ha.Thema)) {
+                if (th.equals(ha.Thema)) {
                     anzahl++;
                 }
             }
