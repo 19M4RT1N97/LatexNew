@@ -8,6 +8,7 @@ package latex.testgenerierung;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -32,7 +33,7 @@ public class MainFrame extends javax.swing.JFrame {
     public MainFrame() {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
+        this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         ImageIcon ic = new ImageIcon("TeXnicCenter.ico");
         this.setIconImage(ic.getImage());
         jTable1.removeAll();
@@ -41,7 +42,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTabbedPane1.enable(false);
         DefaultTableModel themenmodel = new DefaultTableModel(new String[]{"Thema"}, 0);
         JTableThemenListe.setModel(themenmodel);
-        
+
     }
 
     /**
@@ -97,8 +98,9 @@ public class MainFrame extends javax.swing.JFrame {
         BTNloeschen = new javax.swing.JButton();
         JTFdiff = new javax.swing.JTextField();
         jPanel7 = new javax.swing.JPanel();
-        jButton11 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
+        jLayeredPane1 = new javax.swing.JLayeredPane();
+        jButton11 = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -110,16 +112,19 @@ public class MainFrame extends javax.swing.JFrame {
         setFocusCycleRoot(false);
 
         jButton4.setText("Weiter");
+        jButton4.setToolTipText("Nächster Tab");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Themengebiete: ");
         jLabel2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         JBTNThemazuListe.setText("+");
+        JBTNThemazuListe.setToolTipText("Thema zur Auswahl hinzufügen");
         JBTNThemazuListe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 JBTNThemazuListeActionPerformed(evt);
@@ -140,6 +145,7 @@ public class MainFrame extends javax.swing.JFrame {
         jScrollPane2.setViewportView(JTableThemenListe);
 
         BTNthemalöschen.setText("-");
+        BTNthemalöschen.setToolTipText("Ausgewähltes Thema von Liste löschen");
         BTNthemalöschen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNthemalöschenActionPerformed(evt);
@@ -151,49 +157,52 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(190, 190, 190)
+                .addContainerGap(472, Short.MAX_VALUE)
+                .addComponent(jButton4)
+                .addContainerGap())
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(73, 73, 73)
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(CBOThema, 0, 150, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(34, 34, 34)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(BTNthemalöschen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(JBTNThemazuListe, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 181, Short.MAX_VALUE)))
-                .addContainerGap())
+                    .addComponent(CBOThema, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(BTNthemalöschen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(JBTNThemazuListe))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap(168, Short.MAX_VALUE)
+                .addContainerGap(94, Short.MAX_VALUE)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(CBOThema, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(JBTNThemazuListe))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(282, 282, 282)
-                        .addComponent(jButton4))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(BTNthemalöschen)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(BTNthemalöschen)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 278, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addComponent(jButton4)
                 .addContainerGap())
         );
 
         jTabbedPane1.addTab("Topic", jPanel3);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Anzahl der Fragen");
 
+        jTFAnzahl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                jTFAnzahlKeyReleased(evt);
+            }
+        });
+
         jButton2.setText("Weiter");
+        jButton2.setToolTipText("Nächster Tab");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
@@ -201,14 +210,17 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton3.setText("Zurück");
+        jButton3.setToolTipText("Vorheriger Tab");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel3.setText("Max:");
 
+        LBLanzahlmax.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         LBLanzahlmax.setText("jLabel9");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -217,33 +229,37 @@ public class MainFrame extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(389, Short.MAX_VALUE)
                         .addComponent(jButton3)
                         .addGap(18, 18, 18)
                         .addComponent(jButton2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(145, 145, 145)
-                        .addComponent(jLabel1)
-                        .addGap(50, 50, 50)
-                        .addComponent(jTFAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(LBLanzahlmax)
-                        .addGap(0, 244, Short.MAX_VALUE)))
+                        .addGap(108, 108, 108)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(10, 10, 10)
+                                .addComponent(jTFAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LBLanzahlmax))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(107, 107, 107)
+                .addGap(134, 134, 134)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTFAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(LBLanzahlmax))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 346, Short.MAX_VALUE)
+                    .addComponent(LBLanzahlmax)
+                    .addComponent(jTFAnzahl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 267, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(jButton3))
@@ -255,6 +271,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5.setPreferredSize(new java.awt.Dimension(620, 470));
 
         jButton7.setText("Zurück");
+        jButton7.setToolTipText("Vorheriger Tab");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -262,17 +279,39 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton8.setText("Weiter");
+        jButton8.setToolTipText("Nächster Tab");
         jButton8.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton8ActionPerformed(evt);
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel6.setText("1");
 
+        jLabel7.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel7.setText("2");
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel8.setText("3");
+
+        JTFdifficulty2.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTFdifficulty2KeyReleased(evt);
+            }
+        });
+
+        JTFdifficulty3.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTFdifficulty3KeyReleased(evt);
+            }
+        });
+
+        JTFdifficulty1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                JTFdifficulty1KeyReleased(evt);
+            }
+        });
 
         jLabel9.setText("Max:");
 
@@ -323,7 +362,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(LBLDif3Max)
                             .addComponent(LBLDif1Max)
                             .addComponent(LBLDif2Max))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 278, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 117, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton7)
@@ -334,7 +373,7 @@ public class MainFrame extends javax.swing.JFrame {
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap(473, Short.MAX_VALUE)
+                .addContainerGap(444, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton8)
                     .addComponent(jButton7))
@@ -361,7 +400,7 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(jLabel7)
                             .addComponent(LBLdif2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(JTFdifficulty2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(LBLdif3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -376,6 +415,7 @@ public class MainFrame extends javax.swing.JFrame {
         jTabbedPane1.addTab("Schwierigkeit", jPanel5);
 
         jButton9.setText("Zurück");
+        jButton9.setToolTipText("Vorheriger Tab");
         jButton9.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton9ActionPerformed(evt);
@@ -383,6 +423,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         jButton10.setText("Weiter");
+        jButton10.setToolTipText("Nächster Tab");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton10ActionPerformed(evt);
@@ -405,6 +446,7 @@ public class MainFrame extends javax.swing.JFrame {
         jLabel16.setText("Schwierigkeit");
 
         BTNsearch.setText("Search");
+        BTNsearch.setToolTipText("Klicken um nach Auswahl zu Filtern / Schwierigkeit eingeben um alle Fragen einer Schwierigkeit auszuwählen.");
         BTNsearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNsearchActionPerformed(evt);
@@ -412,6 +454,7 @@ public class MainFrame extends javax.swing.JFrame {
         });
 
         BTNloeschen.setText("Löschen");
+        BTNloeschen.setToolTipText("Auswahl der Liste Löschen");
         BTNloeschen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BTNloeschenActionPerformed(evt);
@@ -425,6 +468,7 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
                     .addGroup(jPanel6Layout.createSequentialGroup()
                         .addComponent(jLabel16)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -433,21 +477,18 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(BTNsearch)
                         .addGap(18, 18, 18)
                         .addComponent(BTNloeschen)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 254, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 96, Short.MAX_VALUE)
                         .addComponent(jButton9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton10)
-                        .addContainerGap())
-                    .addGroup(jPanel6Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 446, Short.MAX_VALUE)
-                        .addGap(249, 249, 249))))
+                        .addComponent(jButton10)))
+                .addContainerGap())
         );
         jPanel6Layout.setVerticalGroup(
             jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jButton10)
@@ -462,14 +503,8 @@ public class MainFrame extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Abwahl", jPanel6);
 
-        jButton11.setText("Erstellen");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-
         jButton13.setText("Zurück");
+        jButton13.setToolTipText("Vorheriger Tab");
         jButton13.setAlignmentY(0.4F);
         jButton13.setMargin(new java.awt.Insets(2, 15, 2, 15));
         jButton13.addActionListener(new java.awt.event.ActionListener() {
@@ -478,25 +513,54 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        jButton11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jButton11.setText("Erstellen");
+        jButton11.setToolTipText("Klicken um Latex File zu generieren");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+
+        jLayeredPane1.setLayer(jButton11, javax.swing.JLayeredPane.DEFAULT_LAYER);
+
+        javax.swing.GroupLayout jLayeredPane1Layout = new javax.swing.GroupLayout(jLayeredPane1);
+        jLayeredPane1.setLayout(jLayeredPane1Layout);
+        jLayeredPane1Layout.setHorizontalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
+        );
+        jLayeredPane1Layout.setVerticalGroup(
+            jLayeredPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jLayeredPane1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
         jPanel7Layout.setHorizontalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(187, 187, 187)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(315, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton13)
-                .addGap(73, 73, 73))
+                .addContainerGap(118, Short.MAX_VALUE)
+                .addGroup(jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(jButton13)
+                        .addGap(73, 73, 73))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel7Layout.createSequentialGroup()
+                        .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(134, 134, 134))))
         );
         jPanel7Layout.setVerticalGroup(
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
-                .addGap(89, 89, 89)
-                .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 239, Short.MAX_VALUE)
+                .addGap(81, 81, 81)
+                .addComponent(jLayeredPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 126, Short.MAX_VALUE)
                 .addComponent(jButton13)
                 .addContainerGap())
         );
@@ -506,6 +570,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.setText("Datei");
 
         jMenuItem1.setText("Öffnen");
+        jMenuItem1.setToolTipText("Latex File öffnen");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem1ActionPerformed(evt);
@@ -515,6 +580,7 @@ public class MainFrame extends javax.swing.JFrame {
         jMenu1.add(jSeparator1);
 
         jMenuItem2.setText("Beenden");
+        jMenuItem2.setToolTipText("Programm beenden");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItem2ActionPerformed(evt);
@@ -530,7 +596,7 @@ public class MainFrame extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+            .addComponent(jTabbedPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -572,22 +638,27 @@ public class MainFrame extends javax.swing.JFrame {
             jTabbedPane1.setSelectedIndex(index + 1);
             Util.FragenAnzahl(jTFAnzahl.getText());
         } else if (jTFAnzahl.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Geben sie eine Anzahl an gewünschten Fragen an.");
+            JOptionPane.showMessageDialog(this, "Geben sie eine Anzahl an gewünschten Fragen an.\nMax: "+ LBLanzahlmax.getText());
         } else if (!number) {
-            JOptionPane.showMessageDialog(this, "Geben sie eine Zahl ein.");
+            JOptionPane.showMessageDialog(this, "Geben sie eine Zahl ein.\nMax: "+ LBLanzahlmax.getText());
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         // TODO add your handling code here:
-        int index = jTabbedPane1.getSelectedIndex();
-        int fragefürthemen = Util.getThemencount((DefaultTableModel) JTableThemenListe.getModel());
-        int[] fragenfürdif = Util.getDifMaxCount((DefaultTableModel) JTableThemenListe.getModel());
-        LBLDif1Max.setText(fragenfürdif[0] + "");
-        LBLDif2Max.setText(fragenfürdif[1] + "");
-        LBLDif3Max.setText(fragenfürdif[2] + "");
-        LBLanzahlmax.setText(fragefürthemen + "");
-        jTabbedPane1.setSelectedIndex(index + 1);
+        DefaultTableModel dm = (DefaultTableModel) JTableThemenListe.getModel();
+        if (dm.getRowCount()>0) {
+            int index = jTabbedPane1.getSelectedIndex();
+            int fragefürthemen = Util.getThemencount((DefaultTableModel) JTableThemenListe.getModel());
+            int[] fragenfürdif = Util.getDifMaxCount((DefaultTableModel) JTableThemenListe.getModel());
+            LBLDif1Max.setText(fragenfürdif[0] + "");
+            LBLDif2Max.setText(fragenfürdif[1] + "");
+            LBLDif3Max.setText(fragenfürdif[2] + "");
+            LBLanzahlmax.setText(fragefürthemen + "");
+            jTabbedPane1.setSelectedIndex(index + 1);
+        }else{
+            JOptionPane.showMessageDialog(this, "Sie müssen zuerst mindestens ein Thema auswählen.");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -597,7 +668,10 @@ public class MainFrame extends javax.swing.JFrame {
             int index = jTabbedPane1.getSelectedIndex();
             jTabbedPane1.setSelectedIndex(index + 1);
         } else {
-            JOptionPane.showMessageDialog(this, "Anzahl der Fragen ist zu hoch oder zu niedrig. Bitte prüfen Sie ihre Eingabe!");
+            JOptionPane.showMessageDialog(this, "Anzahl der Fragen ist zu hoch oder zu niedrig. Bitte prüfen Sie ihre Eingabe!\nMax: "+ jTFAnzahl.getText());
+            JTFdifficulty1.setText("");
+            JTFdifficulty2.setText("");
+            JTFdifficulty3.setText("");
         }
     }//GEN-LAST:event_jButton8ActionPerformed
 
@@ -613,8 +687,13 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
         // TODO add your handling code here:
+        DefaultTableModel dm = (DefaultTableModel) jTable1.getModel();
+        if (dm.getRowCount()>0) {
         int index = jTabbedPane1.getSelectedIndex();
         jTabbedPane1.setSelectedIndex(index + 1);
+        }else{
+            JOptionPane.showMessageDialog(this, "Fügen Sie Fragen in die Tabele ein oder überarbeiten Sie Ihre Eingaben.");
+        }
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
@@ -676,14 +755,92 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void BTNthemalöschenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BTNthemalöschenActionPerformed
         // TODO add your handling code here:
-        if (JTableThemenListe.getSelectedRow() != -1) {
-            DefaultTableModel dm = (DefaultTableModel) JTableThemenListe.getModel();
-            String s = (String) dm.getValueAt(JTableThemenListe.getSelectedRow(), 0);
-            CBOThema.addItem(s);
-            dm.removeRow(JTableThemenListe.getSelectedRow());
-            JTableThemenListe.setModel(dm);
+        Object[] o = Util.delThema((DefaultTableModel) JTableThemenListe.getModel(), JTableThemenListe.getSelectedRow());
+        if (o[0] != null&&o[1]!=null) {
+            CBOThema.addItem((String) o[0]);
+            JTableThemenListe.setModel((DefaultTableModel) o[1]);
         }
     }//GEN-LAST:event_BTNthemalöschenActionPerformed
+
+    private void jTFAnzahlKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTFAnzahlKeyReleased
+        // TODO add your handling code here:
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            } else {
+                int istzahl = Integer.parseInt(jTFAnzahl.getText());
+                if (istzahl > Integer.parseInt(LBLanzahlmax.getText()) || istzahl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+                    String s = jTFAnzahl.getText();
+                    jTFAnzahl.setText(s.substring(0, s.length() - 1));
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+            jTFAnzahl.setText("");
+        }
+    }//GEN-LAST:event_jTFAnzahlKeyReleased
+
+    private void JTFdifficulty1KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty1KeyReleased
+        // TODO add your handling code here:
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            } else {
+                int istzahl = Integer.parseInt(JTFdifficulty1.getText());
+                if (istzahl > Integer.parseInt(LBLDif1Max.getText()) || istzahl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Sie haben keine gültige Zahl eingegeben.");
+                    String s = JTFdifficulty1.getText();
+                    JTFdifficulty1.setText(s.substring(0, s.length() - 1));
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+            JTFdifficulty1.setText("");
+        }
+    }//GEN-LAST:event_JTFdifficulty1KeyReleased
+
+    private void JTFdifficulty2KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty2KeyReleased
+        // TODO add your handling code here:
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            } else {
+                int istzahl = Integer.parseInt(JTFdifficulty2.getText());
+                if (istzahl > Integer.parseInt(LBLDif2Max.getText()) || istzahl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+                    String s = JTFdifficulty2.getText();
+                    JTFdifficulty2.setText(s.substring(0, s.length() - 1));
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+            JTFdifficulty2.setText("");
+        }
+    }//GEN-LAST:event_JTFdifficulty2KeyReleased
+
+    private void JTFdifficulty3KeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_JTFdifficulty3KeyReleased
+        // TODO add your handling code here:
+        try {
+            if (evt.getKeyCode() == KeyEvent.VK_BACK_SPACE || evt.getKeyCode() == KeyEvent.VK_ENTER) {
+
+            } else {
+                int istzahl = Integer.parseInt(JTFdifficulty3.getText());
+                if (istzahl > Integer.parseInt(LBLDif3Max.getText()) || istzahl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+                    String s = JTFdifficulty3.getText();
+                    JTFdifficulty3.setText(s.substring(0, s.length() - 1));
+                }
+            }
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Bitte geben Sie eine gültige Zahl ein.");
+            JTFdifficulty3.setText("");
+        }
+    }//GEN-LAST:event_JTFdifficulty3KeyReleased
 
     /**
      * @param args the command line arguments
@@ -760,6 +917,7 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JLayeredPane jLayeredPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;

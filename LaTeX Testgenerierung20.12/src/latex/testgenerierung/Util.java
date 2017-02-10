@@ -525,4 +525,19 @@ public class Util {
 
         }
     }
+    public static Object[] delThema(DefaultTableModel dm, int srow){
+        Object[] o=new Object[2];
+        
+        String returnthema="";
+        if (srow != -1) {
+            
+            returnthema = (String) dm.getValueAt(srow, 0);
+            
+            dm.removeRow(srow);
+        
+        o[0]=returnthema;
+        o[1]=dm;
+        }
+        return o;
+    }
 }
