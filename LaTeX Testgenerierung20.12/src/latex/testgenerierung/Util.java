@@ -221,7 +221,7 @@ public class Util {
                 //Difficulty attribut auslesen und Festlegen
                 if (line.contains("% @difficulty")) {
                     String[] split = line.split("=");
-                    difficulty = Integer.parseInt(split[1]);
+                    difficulty = Integer.parseInt(split[1].substring(0, 1));
                 }
                 if (lineadd) {
                     fullline += line + " ; ";
