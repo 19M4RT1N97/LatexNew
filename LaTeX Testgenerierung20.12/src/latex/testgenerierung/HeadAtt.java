@@ -22,5 +22,4 @@ public class HeadAtt {
         this.Thema=splittthema[1];
         this.Schwierigkeit=splittschwer[1];
     }
-    
 }
