@@ -5,7 +5,6 @@
  */
 package jfxtest;
 
-import com.sun.nio.sctp.AssociationChangeNotification;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -27,13 +26,17 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.ProgressIndicator;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.swing.table.DefaultTableModel;
@@ -99,6 +102,13 @@ public class JFXpannelTestController implements Initializable {
     private Button BTNnew;
     @FXML
     private TabPane TabbedPane;
+    @FXML
+    private AnchorPane out_Anchorpane;
+    @FXML
+    private Pane out_Pane;
+    @FXML
+    private MenuBar menubar;
+    
 
     /**
      * Initializes the controller class.
@@ -107,7 +117,7 @@ public class JFXpannelTestController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         ObservableList ol = FXCollections.observableArrayList();
-        String ha = "Name\t\t\t\tTopic\t\t\t\tSchwierigkeit";
+        String ha = "Name\t\t\t\tTopic\t\t\tSchwierigkeit";
         ol.add(ha);
         LVfragenwahl.getItems().addAll(ol);
         TabAnzahl.setDisable(true);
@@ -118,7 +128,6 @@ public class JFXpannelTestController implements Initializable {
 
     @FXML
     private void TabAnzahl_OnTabChange(Event event) {
-        TFfragenanzahl.clear();
         themaliste = new DefaultTableModel();
         themaliste.addColumn("themen");
         ObservableList ol = FXCollections.observableArrayList();
@@ -161,6 +170,7 @@ public class JFXpannelTestController implements Initializable {
 
     @FXML
     private void BTNaddthema_OnAction(ActionEvent event) {
+
         ObservableList ol = FXCollections.observableArrayList();
         if (CBOThemen.getValue() != null) {
             ol.add(CBOThemen.getValue());
@@ -173,6 +183,7 @@ public class JFXpannelTestController implements Initializable {
         } else {
             TabAnzahl.setDisable(false);
         }
+
     }
 
     @FXML
@@ -195,22 +206,32 @@ public class JFXpannelTestController implements Initializable {
 
     @FXML
     private void MenuOeffnen_OnAction(ActionEvent event) {
+        
+        
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open TEX File");
-        
+
         FileChooser.ExtensionFilter exf = new FileChooser.ExtensionFilter("Dateiname", "*.tex");
         fileChooser.getExtensionFilters().add(exf);
         File f = fileChooser.showOpenDialog(new Stage());
+        
         if (f != null) {
             Util.readFile(f.getAbsolutePath());
+            
         }
+
         LinkedList<String> themen = Util.themenRead();
         ObservableList ol = FXCollections.observableArrayList();
+
         for (String thema : themen) {
             ol.add(thema);
+
         }
+
         CBOThemen.setItems(ol);
         CBOThemen.getSelectionModel().select(0);
+        
+        
     }
 
     @FXML
@@ -220,17 +241,36 @@ public class JFXpannelTestController implements Initializable {
 
     @FXML
     private void TFanzahl_OnKeyRelease(KeyEvent event) {
-        if (!TFfragenanzahl.getText().isEmpty()) {
-            SchwierigkeitenTab.setDisable(false);
+        if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.BACK_SPACE && TFfragenanzahl.getText().isEmpty()) {
+                SchwierigkeitenTab.setDisable(true);
+            }
         } else {
-            SchwierigkeitenTab.setDisable(true);
+            try {
+                int anzahl = Integer.parseInt(TFfragenanzahl.getText());
+                if (!TFfragenanzahl.getText().isEmpty()) {
+                    SchwierigkeitenTab.setDisable(false);
+                    if (anzahl > Integer.parseInt(LBLmaxanzahl.getText())) {
+                        Alert a = new Alert(Alert.AlertType.ERROR, "Bitte geben Sie eine gültige Zahl ein.", ButtonType.CLOSE);
+                        a.show();
+                        SchwierigkeitenTab.setDisable(true);
+                        TFfragenanzahl.setText("");
+                    }
+                } else {
+                    SchwierigkeitenTab.setDisable(true);
+                }
+            } catch (NumberFormatException e) {
+                Alert a = new Alert(Alert.AlertType.ERROR, "Bitte geben Sie eine gültige Zahl ein.", ButtonType.CLOSE);
+                a.show();
+            }
         }
     }
 
     @FXML
-    private void TFdiff1_KeyReleased(KeyEvent event) {
+    private void TFdiff1_KeyReleased(KeyEvent event
+    ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
                 if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
                         AbwahlTab.setDisable(true);
@@ -264,9 +304,10 @@ public class JFXpannelTestController implements Initializable {
     }
 
     @FXML
-    private void TFdiff2_KeyReleased(KeyEvent event) {
+    private void TFdiff2_KeyReleased(KeyEvent event
+    ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
                 if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
                         AbwahlTab.setDisable(true);
@@ -298,9 +339,10 @@ public class JFXpannelTestController implements Initializable {
     }
 
     @FXML
-    private void TFdiff3_KeyReleased(KeyEvent event) {
+    private void TFdiff3_KeyReleased(KeyEvent event
+    ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER) {
+            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
                 if (event.getCode() == KeyCode.BACK_SPACE) {
                     if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
                         AbwahlTab.setDisable(true);
@@ -331,7 +373,8 @@ public class JFXpannelTestController implements Initializable {
     }
 
     @FXML
-    private void BTNSuche_OnAction(ActionEvent event) {
+    private void BTNSuche_OnAction(ActionEvent event
+    ) {
         ObservableList ol = FXCollections.observableArrayList();
         DefaultTableModel questiontable = new DefaultTableModel(new String[]{"Name", "Topic", "Schwierigkeit"}, 0);
         DefaultTableModel questiontabletemp = new DefaultTableModel(new String[]{"Name", "Topic", "Schwierigkeit"}, 0);
@@ -360,24 +403,26 @@ public class JFXpannelTestController implements Initializable {
             }
 
         }
-        if(LVfragenwahl.getItems().size()>1){
+        if (LVfragenwahl.getItems().size() > 1) {
             FertigTab.setDisable(false);
         }
     }
 
     @FXML
-    private void BTNLoeschen_OnAction(ActionEvent event) {
+    private void BTNLoeschen_OnAction(ActionEvent event
+    ) {
 
         if (LVfragenwahl.getSelectionModel().getSelectedIndex() > 0) {
             LVfragenwahl.getItems().remove(LVfragenwahl.getSelectionModel().getSelectedIndex());
         }
-        if(LVfragenwahl.getItems().size()<=1){
+        if (LVfragenwahl.getItems().size() <= 1) {
             FertigTab.setDisable(true);
         }
     }
 
     @FXML
-    private void BTNspeichern_OnAction(ActionEvent event) {
+    private void BTNspeichern_OnAction(ActionEvent event
+    ) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save TEX File");
         FileChooser.ExtensionFilter exf = new FileChooser.ExtensionFilter("Dateiname", "*.tex");
@@ -393,9 +438,10 @@ public class JFXpannelTestController implements Initializable {
     }
 
     @FXML
-    private void BTNnew_OnAction(ActionEvent event) {
+    private void BTNnew_OnAction(ActionEvent event
+    ) {
         LVthemen.getItems().clear();
-        LVfragenwahl.getItems().remove(1, LVfragenwahl.getItems().size()-1);
+        LVfragenwahl.getItems().remove(1, LVfragenwahl.getItems().size() - 1);
         TFdiff1.setText("");
         TFdiff2.setText("");
         TFdiff3.setText("");

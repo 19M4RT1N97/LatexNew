@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 import static java.lang.Math.round;
+import javafx.scene.control.ProgressIndicator;
 
 /**
  *
@@ -186,18 +187,22 @@ public class Util {
 
     public static void readFile(String path) {
         BufferedReader br = null;
+        
         try {
-            //Dokument mit File Chooser einlesen
+            
 
             FileReader fr = new FileReader(new File(path));
-
+            
             br = new BufferedReader(fr);
+          
             boolean questions = false;
-            //Arraylist Erstellen und mit 10 Elementen Befüllen (OutOfBounce vorbeugung)
+            
             String fullline = "";
             int difficulty = 0;
             boolean lineadd = true;
+           
             while (br.ready()) {
+                
                 String line = br.readLine();
                 if (line.contains("\\begin{questions}")) {
                     fullline += line + " ";
@@ -228,6 +233,7 @@ public class Util {
                 } else {
                     lineadd = true;
                 }
+                
             }
 
             System.out.println("" + head.toString());

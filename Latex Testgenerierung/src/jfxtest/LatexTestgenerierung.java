@@ -22,8 +22,8 @@ public class LatexTestgenerierung extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("LaTeX Testgenerierung FX.fxml"));
 
         Scene scene = new Scene(root);
-        stage.setResizable(false);
-
+        stage.setResizable(true);
+        
         stage.setTitle("Latex Testgenerierung");
         stage.setScene(scene);
         stage.show();
