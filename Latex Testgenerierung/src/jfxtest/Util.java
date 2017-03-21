@@ -60,6 +60,19 @@ public class Util {
         }
     }
 
+    public static boolean maxisgreater(String diff1, String diff2, String diff3, String max) {
+        int[] i = new int[4];
+        i[0] = Integer.parseInt(diff1);
+        i[1] = Integer.parseInt(diff2);
+        i[2] = Integer.parseInt(diff3);
+        i[3] = Integer.parseInt(max);
+        if(i[3]<(i[0]+i[1]+i[2])){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
     public static LinkedList themenRead() {
         for (int index = 0; index < dif1.size(); index++) {
             String difficulty1 = dif1.get(index).toString();
@@ -187,22 +200,21 @@ public class Util {
 
     public static void readFile(String path) {
         BufferedReader br = null;
-        
+
         try {
-            
 
             FileReader fr = new FileReader(new File(path));
-            
+
             br = new BufferedReader(fr);
-          
+
             boolean questions = false;
-            
+
             String fullline = "";
             int difficulty = 0;
             boolean lineadd = true;
-           
+
             while (br.ready()) {
-                
+
                 String line = br.readLine();
                 if (line.contains("\\begin{questions}")) {
                     fullline += line + " ";
@@ -233,7 +245,7 @@ public class Util {
                 } else {
                     lineadd = true;
                 }
-                
+
             }
 
             System.out.println("" + head.toString());

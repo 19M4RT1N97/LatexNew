@@ -608,11 +608,15 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         // TODO add your handling code here:
+        try{
         JFileChooser jfc = new JFileChooser();
         FileFilter ff = new FileNameExtensionFilter(null, "tex");
         jfc.setFileFilter(ff);
         jfc.showOpenDialog(jfc);
         Util.readFile(jfc.getSelectedFile().getAbsolutePath());
+        }catch(NullPointerException e){
+            
+        }
 
         LinkedList<String> themen = Util.themenRead();
         for (String thema : themen) {

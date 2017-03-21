@@ -49,6 +49,7 @@ public class Util {
         setAnzahlDif(2, jtfdif3);
 
     }
+    
 
     public static void setAnzahlDif(int index, String jtf) {
         //Fals das Übergebene Textfeld leer ist wird eine 0 gespeichert, fals nicht wird es in einem Int[] gespeichert.

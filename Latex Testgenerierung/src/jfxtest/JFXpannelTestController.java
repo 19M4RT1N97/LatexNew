@@ -29,6 +29,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.ProgressIndicator;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
@@ -108,7 +109,6 @@ public class JFXpannelTestController implements Initializable {
     private Pane out_Pane;
     @FXML
     private MenuBar menubar;
-    
 
     /**
      * Initializes the controller class.
@@ -162,6 +162,7 @@ public class JFXpannelTestController implements Initializable {
     @FXML
     private void AbwahlTab_OnSelect(Event event) {
         Util.DiffFragenanzahl(TFdiff1.getText(), TFdiff2.getText(), TFdiff3.getText());
+
     }
 
     @FXML
@@ -206,18 +207,17 @@ public class JFXpannelTestController implements Initializable {
 
     @FXML
     private void MenuOeffnen_OnAction(ActionEvent event) {
-        
-        
+
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open TEX File");
 
         FileChooser.ExtensionFilter exf = new FileChooser.ExtensionFilter("Dateiname", "*.tex");
         fileChooser.getExtensionFilters().add(exf);
         File f = fileChooser.showOpenDialog(new Stage());
-        
+
         if (f != null) {
             Util.readFile(f.getAbsolutePath());
-            
+
         }
 
         LinkedList<String> themen = Util.themenRead();
@@ -230,8 +230,7 @@ public class JFXpannelTestController implements Initializable {
 
         CBOThemen.setItems(ol);
         CBOThemen.getSelectionModel().select(0);
-        
-        
+
     }
 
     @FXML
@@ -270,27 +269,27 @@ public class JFXpannelTestController implements Initializable {
     private void TFdiff1_KeyReleased(KeyEvent event
     ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
-                if (event.getCode() == KeyCode.BACK_SPACE) {
-                    if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
-                        AbwahlTab.setDisable(true);
-                    }
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
+                    AbwahlTab.setDisable(true);
                 }
+            } else if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+
             } else {
+
                 int istzahl = Integer.parseInt(TFdiff1.getText());
-                if (istzahl > Integer.parseInt(LBLdiff1.getText()) || istzahl <= 0) {
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Bitte geben Sie eine gültige Zahl ein.", ButtonType.CLOSE);
+
+                if (istzahl > Integer.parseInt(LBLdiff1.getText())) {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Die eingegebene Zahl ist zu groß!", ButtonType.CLOSE);
                     a.show();
                     String s = TFdiff1.getText();
                     TFdiff1.setText(s.substring(0, s.length() - 1));
 
                 }
-
             }
             if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
                 AbwahlTab.setDisable(true);
             } else {
-
                 AbwahlTab.setDisable(false);
             }
 
@@ -307,16 +306,18 @@ public class JFXpannelTestController implements Initializable {
     private void TFdiff2_KeyReleased(KeyEvent event
     ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
-                if (event.getCode() == KeyCode.BACK_SPACE) {
-                    if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
-                        AbwahlTab.setDisable(true);
-                    }
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
+                    AbwahlTab.setDisable(true);
                 }
+            } else if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+
             } else {
+
                 int istzahl = Integer.parseInt(TFdiff2.getText());
-                if (istzahl > Integer.parseInt(LBLdiff2.getText()) || istzahl <= 0) {
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Bitte geben Sie eine gültige Zahl ein.", ButtonType.CLOSE);
+
+                if (istzahl > Integer.parseInt(LBLdiff2.getText())) {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Die eingegebene Zahl ist zu groß!", ButtonType.CLOSE);
                     a.show();
                     String s = TFdiff2.getText();
                     TFdiff2.setText(s.substring(0, s.length() - 1));
@@ -342,16 +343,18 @@ public class JFXpannelTestController implements Initializable {
     private void TFdiff3_KeyReleased(KeyEvent event
     ) {
         try {
-            if (event.getCode() == KeyCode.BACK_SPACE || event.getCode() == KeyCode.ENTER|| event.getCode()==KeyCode.TAB) {
-                if (event.getCode() == KeyCode.BACK_SPACE) {
-                    if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
-                        AbwahlTab.setDisable(true);
-                    }
+            if (event.getCode() == KeyCode.BACK_SPACE) {
+                if (TFdiff1.getText().isEmpty() && TFdiff2.getText().isEmpty() && TFdiff3.getText().isEmpty()) {
+                    AbwahlTab.setDisable(true);
                 }
+            } else if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.TAB) {
+
             } else {
+
                 int istzahl = Integer.parseInt(TFdiff3.getText());
-                if (istzahl > Integer.parseInt(LBLdiff3.getText()) || istzahl <= 0) {
-                    Alert a = new Alert(Alert.AlertType.ERROR, "Bitte geben Sie eine gültige Zahl ein.", ButtonType.CLOSE);
+
+                if (istzahl > Integer.parseInt(LBLdiff3.getText())) {
+                    Alert a = new Alert(Alert.AlertType.ERROR, "Die eingegebene Zahl ist zu groß!", ButtonType.CLOSE);
                     a.show();
                     String s = TFdiff3.getText();
                     TFdiff3.setText(s.substring(0, s.length() - 1));
