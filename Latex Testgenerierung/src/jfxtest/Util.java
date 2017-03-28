@@ -443,13 +443,13 @@ public class Util {
         return issingle;
     }
 
-    public static DefaultTableModel TableLoeschen(DefaultTableModel dm, int row) {
+    public static void TableLoeschen(int row) {
         //löschen der ausgewählten Zeile in der Table
         if (row > -1) {
             QuestionList.remove(row);
-            dm.removeRow(row);
+            
         }
-        return dm;
+        
     }
 
     public static void createLaTexDoc(String path) throws IOException {

@@ -397,6 +397,9 @@ public class JFXpannelTestController implements Initializable {
                     if (tablec == 0 && ha.length() > 25) {
                         ha = (String) ha.subSequence(0, 15) + "\t\t";
                     }
+                    if (tablec == 1 && ha.length() < 28) {
+                        ha += "\t";
+                    }
                 }
 
                 ol.add(ha);
@@ -417,6 +420,7 @@ public class JFXpannelTestController implements Initializable {
 
         if (LVfragenwahl.getSelectionModel().getSelectedIndex() > 0) {
             LVfragenwahl.getItems().remove(LVfragenwahl.getSelectionModel().getSelectedIndex());
+            Util.TableLoeschen(LVfragenwahl.getSelectionModel().getSelectedIndex());
         }
         if (LVfragenwahl.getItems().size() <= 1) {
             FertigTab.setDisable(true);
